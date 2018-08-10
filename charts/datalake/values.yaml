@@ -1,27 +1,17 @@
-spark:
-  replicaCount: 1
-
+hiveservice:
+  replicaCount: 3
   image:
-    repository: art-hq.intranet.qualys.com:5001/k8s.gcr.io/spark
-    tag: 0.1.10
+    repository: art-hq.intranet.qualys.com:5001/k8s.gcr.io/hiveservice
+    tag: 0.1.0
     pullPolicy: IfNotPresent
-    command: ["/start-master"]
-
   ingress:
     enabled: false
-    
   service:
-    type: None
-    portUI: 8080
-    portRPC: 7077
-
+    type: ClusterIP
+    portThrift: 9083
   resources:
     requests:
       cpu: 100m
-
-  nodeSelector:
-    role: compute
-
+  nodeSelector: {}
   tolerations: []
-
   affinity: {}

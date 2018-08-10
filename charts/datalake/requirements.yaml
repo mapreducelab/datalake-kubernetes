@@ -1,7 +1,13 @@
 dependencies:
-  - name: spark
-    version: "1.0.0"
-    repository: "file://../spark"
-    condition: condition.subchart.spark
+  - name: hiveservice
+    version: "0.1.0"
+    repository: "file://../hiveservice"
+    condition: condition.subchart.hiveservice
     tags:
-      - spark
+      - hiveservice
+  # - name: spark
+  #   version: "0.1.0"
+  #   repository: "file://../spark"
+  #   condition: condition.subchart.spark
+  #   tags:
+  #     - spark
