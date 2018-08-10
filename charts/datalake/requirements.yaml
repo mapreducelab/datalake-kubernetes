@@ -1,0 +1,7 @@
+dependencies:
+  - name: spark
+    version: "1.0.0"
+    repository: "file://../spark"
+    condition: condition.subchart.spark
+    tags:
+      - spark
