@@ -8,8 +8,6 @@ metadata:
     release: {{ .Release.Name }}
 data:
   hive-site.xml: |
-    <?xml version="1.0"?>
-    <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
     <configuration>
       <property>
         <name>javax.jdo.option.ConnectionURL</name>
@@ -28,62 +26,24 @@ data:
         <value>hive</value>
       </property>
       <property>
-        <name>datanucleus.autoCreateSchema</name>
-        <value>false</value>
-      </property>
-      <property>
-        <name>hive.execution.engine</name>
-        <value>spark</value>
-      </property>
-      <property>
         <name>fs.alluxio.impl</name>
         <value>alluxio.hadoop.FileSystem</value>
-        <description>The Alluxio FileSystem (Hadoop 1.x and 2.x)</description>
       </property>
       <property>
         <name>fs.AbstractFileSystem.alluxio.impl</name>
         <value>alluxio.hadoop.AlluxioFileSystem</value>
-        <description>The Alluxio AbstractFileSystem (Hadoop 2.x)</description>
       </property>
       <property>
         <name>fs.defaultFS</name>
         <value>alluxio://sandbox01.p02.eng.sjc01.qualys.com:19998</value>
       </property>
       <property>
-        <name>spark.master</name>
-        <value>spark://spark-master:6066</value>
-      </property>
-      <property>
         <name>spark.eventLog.dir</name>
         <value>alluxio://sandbox01.p02.eng.sjc01.qualys.com:19998/sparkeventLog</value>
       </property>
       <property>
-        <name>spark.home</name>
-        <value>/opt/spark</value>
-      </property>
-      <property>
-        <name>hive.server2.transport.mode</name>
-        <value>http</value>
-      </property>
-      <property>
-        <name>spark.executor.memory</name>
-        <value>7g</value>
-      </property>
-      <property>
-        <name>spark.driver.memory</name>
-        <value>1g</value>
-      </property>
-      <property>
-        <name>spark.executor.memoryOverhead</name>
-        <value>384m</value>
-      </property>
-      <property>
-        <name>spark.driver.memoryOverhead</name>
-        <value>384m</value>
-      </property>
-      <property>
-        <name>spark.scheduler.minRegisteredResourcesRatio</name>
-        <value>0.8</value>
+        <name>datanucleus.autoCreateSchema</name>
+        <value>false</value>
       </property>
       <property>
         <name>alluxio.user.file.readtype.default</name>
