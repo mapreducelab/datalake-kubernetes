@@ -1,0 +1,4 @@
+apiVersion: v1
+name: hiveservice
+version: 0.1.0
+description: HiveService for DataLake on Kubernetes.

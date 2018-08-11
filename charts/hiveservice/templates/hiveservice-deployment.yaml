@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "datalake.hiveservice.fullname" . }}
+  labels:
+    app: {{ template "datalake.hiveservice.name" . }}
+    chart: {{ template "datalake.subchart" . }}
+    release: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "datalake.hiveservice.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "datalake.hiveservice.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: thrift
+              containerPort: {{ .Values.service.portThrift }}
+              protocol: TCP
+          readinessProbe:
+            tcpSocket:
+              port: thrift
+          livenessProbe:
+            tcpSocket:
+              port: thrift
+          volumeMounts:
+            - name: hiveservice-config
+              mountPath: /opt/hive/conf/hive-site.xml
+              subPath: hive-site.xml
+              readOnly: true
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+      volumes:
+        - name: hiveservice-config
+          configMap:
+            name: {{ template "datalake.hiveservice.fullname" . }}

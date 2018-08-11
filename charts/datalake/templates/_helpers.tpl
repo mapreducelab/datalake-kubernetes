@@ -3,7 +3,7 @@
 Create a short app name.
 */}}
 {{- define "datalake.name" -}}
-hdfs
+datalake
 {{- end -}}
 
 {{/*
@@ -31,11 +31,15 @@ Create chart name and version as used by the subchart label.
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "spark-fullname" -}}
+{{- define "datalake.hiveservice.name" -}}
+{{- template "datalake.name" . -}}-hiveservice
+{{- end -}}
+
+{{- define "datalake.hiveservice.fullname" -}}
 {{- $fullname := include "datalake.fullname" . -}}
-{{- if contains "spark" $fullname -}}
+{{- if contains "hiveservice" $fullname -}}
 {{- printf "%s" $fullname -}}
 {{- else -}}
-{{- printf "%s-spark" $fullname | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s-hiveservice" $fullname | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- end -}}
