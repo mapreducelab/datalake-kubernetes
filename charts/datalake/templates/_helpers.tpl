@@ -32,7 +32,7 @@ Create chart name and version as used by the subchart label.
 {{- end -}}
 
 {{- define "datalake.hiveservice.name" -}}
-{{- template "datalake.name" . -}}-namenode
+{{- template "datalake.name" . -}}-hiveservice
 {{- end -}}
 
 {{- define "datalake.hiveservice.fullname" -}}
