@@ -35,10 +35,14 @@ spec:
             httpGet:
               path: /
               port: webui
+              initialDelaySeconds: 120
+              timeoutSeconds: 5
           readinessProbe:
             httpGet:
               path: /
               port: webui
+              initialDelaySeconds: 60
+              timeoutSeconds: 5
           volumeMounts:
             - name: spark-config
               mountPath: /opt/spark/conf/hive-site.xml

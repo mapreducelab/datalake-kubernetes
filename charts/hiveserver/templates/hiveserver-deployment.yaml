@@ -34,10 +34,14 @@ spec:
             httpGet:
               path: /
               port: ui
+              initialDelaySeconds: 120
+              timeoutSeconds: 5
           readinessProbe:
             httpGet:
               path: /
               port: ui
+              initialDelaySeconds: 60
+              timeoutSeconds: 5
           volumeMounts:
             - name: hive-config
               mountPath: /opt/hive/conf/hive-site.xml
