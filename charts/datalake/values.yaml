@@ -21,7 +21,7 @@ spark:
   image:
     spark:
       repository: art-hq.intranet.qualys.com:5001/datalake/spark
-      tag: 0.2.10
+      tag: 0.2.12
       pullPolicy: IfNotPresent
     proxy:
       repository: art-hq.intranet.qualys.com:5001/k8s.gcr.io/spark-ui-proxy

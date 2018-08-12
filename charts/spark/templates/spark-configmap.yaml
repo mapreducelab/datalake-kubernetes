@@ -7,6 +7,18 @@ metadata:
     chart: {{ template "datalake.subchart" . }}
     release: {{ .Release.Name }}
 data:
+  spark-defaults.conf: |
+    spark.master spark://spark-master:7077
+    spark.app.id QualysSpark
+    spark.hadoop.datanucleus.autoCreateSchema false
+    spark.executor.memory 8g
+    spark.executor.memoryOverhead   384m
+    spark.driver.memory 4g
+    spark.driver.memoryOverhead  384m
+    spark.scheduler.minRegisteredResourcesRatio 0.8
+    spark.sql.hive.metastore.version 3.1.0
+    spark.sql.hive.metastore.schema.verification false
+
   hive-site.xml: |
     <configuration>
       <property>
