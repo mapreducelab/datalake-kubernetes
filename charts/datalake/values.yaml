@@ -2,7 +2,7 @@ hiveservice:
   replicaCount: 1
   image:
     repository: art-hq.intranet.qualys.com:5001/datalake/hiveservice
-    tag: 0.1.11
+    tag: 0.1.12
     pullPolicy: IfNotPresent
   ingress:
     enabled: false

@@ -26,7 +26,6 @@ ENV HADOOP_HOME /opt/hadoop
 
 COPY --from=builder ${HIVE_HOME} ${HIVE_HOME}/
 COPY --from=builder ${HADOOP_HOME} ${HADOOP_HOME}/
-COPY --from=builder /opt/alluxio_client.jar ${HADOOP_HOME}/share/hadoop/common/
 COPY --from=builder /opt/alluxio_client.jar ${HIVE_HOME}/lib/
 
 ENTRYPOINT [ "/opt/hive/bin/hive" ]
