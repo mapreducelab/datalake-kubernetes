@@ -27,6 +27,7 @@ RUN mkdir -p /opt/build && \
     tar -zxf hadoop-${HADOOP_VER}.tar.gz && \
     mv hadoop-${HADOOP_VER} /opt/build/ && \
     tar -zxf apache-hive-${HIVE_VER}-bin.tar.gz && \
+    cp apache-hive-${HIVE_VER}-bin/lib/hive-exec-${HIVE_VER}.jar /opt/build/spark-${SPARK_VER}-bin-without-hadoop/jars && \
     mv apache-hive-${HIVE_VER}-bin /opt/build/ && \
     tar -zxf alluxio-${ALLUXIO_VER}-hadoop-2.9-bin.tar.gz && \
     cp alluxio-${ALLUXIO_VER}-hadoop-2.9/client/alluxio-${ALLUXIO_VER}-client.jar /opt/build/spark-${SPARK_VER}-bin-without-hadoop/jars/ && \
@@ -56,7 +57,8 @@ ENV PATH="${PATH}:${SPARK_HOME}/bin:${HIVE_HOME}/bin:${HADOOP_HOME}/bin"
 ENV SPARK_DIST_CLASSPATH="${HADOOP_HOME}/etc/hadoop:${HADOOP_HOME}/share/hadoop/common/lib/*:${HADOOP_HOME}/share/hadoop/common/*:${HADOOP_HOME}/share/hadoop/hdfs:${HADOOP_HOME}/share/hadoop/hdfs/lib/*:${HADOOP_HOME}/share/hadoop/hdfs/*:${HADOOP_HOME}/share/hadoop/yarn:${HADOOP_HOME}/share/hadoop/yarn/lib/*:${HADOOP_HOME}/share/hadoop/yarn/*:${HADOOP_HOME}/share/hadoop/mapreduce/lib/*:${HADOOP_HOME}/share/hadoop/mapreduce/*:${HADOOP_HOME}/contrib/capacity-scheduler/*.jar"
 
 RUN yum -y install java-1.8.0-openjdk which && \
-    ln -s ${SPARK_HOME} /opt/spark
+    ln -s ${SPARK_HOME} /opt/spark && \
+    ln -s ${HADOOP_HOME} /opt/hadoop
 
 COPY --from=builder /opt/build/ /opt/
 COPY start-worker start-master /
