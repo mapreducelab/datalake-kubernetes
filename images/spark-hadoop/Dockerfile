@@ -25,7 +25,7 @@ RUN mkdir -p /opt/build && \
     tar -zxf hadoop-${HADOOP_VER}.tar.gz && \
     mv hadoop-${HADOOP_VER} /opt/build/ && \
     tar -zxf alluxio-${ALLUXIO_VER}-hadoop-2.9-bin.tar.gz && \
-    cp alluxio-${ALLUXIO_VER}-hadoop-2.7/client/alluxio-${ALLUXIO_VER}-client.jar /opt/build/spark-${SPARK_VER}-bin-hadoop2.7/jars/ && \
+    cp alluxio-${ALLUXIO_VER}-hadoop-2.9/client/alluxio-${ALLUXIO_VER}-client.jar /opt/build/spark-${SPARK_VER}-bin-hadoop2.7/jars/ && \
     cp spark-cassandra-connector_2.11-2.3.1.jar /opt/build/spark-${SPARK_VER}-bin-hadoop2.7/jars/ && \
     tar -xf ojdbc8-full.tar && cp OJDBC8-Full/ojdbc8.jar /opt/build/spark-${SPARK_VER}-bin-hadoop2.7/jars/
 
