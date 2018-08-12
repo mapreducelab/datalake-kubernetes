@@ -1,0 +1,64 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "datalake.spark-master.fullname" . }}
+  labels:
+    app: {{ template "datalake.spark-master.name" . }}
+    chart: {{ template "datalake.subchart" . }}
+    release: {{ .Release.Name }}
+data:
+  hive-site.xml: |
+    <configuration>
+      <property>
+        <name>hive.metastore.schema.verification</name>
+        <value>false</value>
+      </property>
+      <property>
+        <name>javax.jdo.option.ConnectionURL</name>
+        <value>jdbc:postgresql://postgresql:5432/metastore</value>
+      </property>
+      <property>
+        <name>javax.jdo.option.ConnectionDriverName</name>
+        <value>org.postgresql.Driver</value>
+      </property>
+      <property>
+        <name>javax.jdo.option.ConnectionUserName</name>
+        <value>hive</value>
+      </property>
+      <property>
+        <name>javax.jdo.option.ConnectionPassword</name>
+        <value>hive</value>
+      </property>
+      <property>
+        <name>datanucleus.autoCreateSchema</name>
+        <value>false</value>
+      </property>
+      <property>
+        <name>hive.execution.engine</name>
+        <value>spark</value>
+      </property>
+      <property>
+        <name>fs.alluxio.impl</name>
+        <value>alluxio.hadoop.FileSystem</value>
+      </property>
+      <property>
+        <name>fs.AbstractFileSystem.alluxio.impl</name>
+        <value>alluxio.hadoop.AlluxioFileSystem</value>
+      </property>
+      <property>
+        <name>fs.defaultFS</name>
+        <value>alluxio://sandbox01.p02.eng.sjc01.qualys.com:19998</value>
+      </property>
+      <property>
+        <name>spark.master</name>
+        <value>spark://spark-master:6066</value>
+      </property>
+      <property>
+        <name>spark.eventLog.dir</name>
+        <value>alluxio://sandbox01.p02.eng.sjc01.qualys.com:19998/sparkeventLog</value>
+      </property>
+      <property>
+        <name>spark.home</name>
+        <value>/opt/spark</value>
+      </property>
+    </configuration>

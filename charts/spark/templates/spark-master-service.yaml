@@ -1,22 +1,21 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "spark-master.name" . }}
+  name: {{ template "datalake.spark-master.hostname" . }}
   labels:
-    app: {{ template "spark-master.name" . }}
-    chart: {{ template "spark-master.chart" . }}
+    app: {{ template "datalake.spark-master.name" . }}
+    chart: {{ template "datalake.subchart" . }}
     release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
 spec:
-  clusterIP: {{ .Values.service.type }}
+  clusterIP: {{ .Values.service.spark.type }}
   ports:
-    - port: {{ .Values.service.portUI }}
+    - port: {{ .Values.service.spark.portUI }}
       targetPort: webui
       protocol: TCP
       name: webui
-    - port: {{ .Values.service.portRPC }}
+    - port: {{ .Values.service.spark.portRPC }}
       targetPort: rpc 
       name: rpc
   selector:
-    app: {{ template "spark-master.name" . }}
+    app: {{ template "datalake.spark-master.name" . }}
     release: {{ .Release.Name }}

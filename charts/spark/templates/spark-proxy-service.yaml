@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "datalake.spark-proxy.fullname" . }}
+  labels:
+    app: {{ template "datalake.spark-proxy.name" . }}
+    chart: {{ template "datalake.subchart" . }}
+    release: {{ .Release.Name }}
+spec:
+  type: {{ .Values.service.proxy.type }}
+  ports:
+    - port: {{ .Values.service.proxy.port }}
+      targetPort: http
+      protocol: TCP
+      nodePort: {{ .Values.service.proxy.nodePortUI }}
+      name: http
+  selector:
+    app: {{ template "datalake.spark-proxy.name" . }}
+    release: {{ .Release.Name }}

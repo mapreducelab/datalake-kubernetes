@@ -1,44 +1,40 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "datalake.spark-master.fullname" . }}
+  name: {{ template "datalake.spark-worker.fullname" . }}
   labels:
-    app: {{ template "datalake.spark-master.name" . }}
+    app: {{ template "datalake.spark-worker.name" . }}
     chart: {{ template "datalake.subchart" . }}
     release: {{ .Release.Name }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ template "datalake.spark-master.name" . }}
+      app: {{ template "datalake.spark-worker.name" . }}
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ template "datalake.spark-master.name" . }}
+        app: {{ template "datalake.spark-worker.name" . }}
         release: {{ .Release.Name }}
     spec:
-      hostname: {{ template "datalake.spark-master.hostname" . }}
       containers:
-        - name: {{ .Chart.Name }}-master
+        - name: {{ .Chart.Name }}-worker
           image: "{{ .Values.image.spark.repository }}:{{ .Values.image.spark.tag }}"
           imagePullPolicy: {{ .Values.image.spark.pullPolicy }}
-          command: ["/start-master"]
+          command: ["/start-worker"]
           ports:
-            - name: rpc
-              containerPort: 7077
-              protocol: TCP
-            - name: webui
-              containerPort: 8080
+            - name: http
+              containerPort: 8081
               protocol: TCP
           livenessProbe:
             httpGet:
               path: /
-              port: webui
+              port: http
           readinessProbe:
             httpGet:
               path: /
-              port: webui
+              port: http
           volumeMounts:
             - name: spark-config
               mountPath: /opt/hive/conf/hive-site.xml
