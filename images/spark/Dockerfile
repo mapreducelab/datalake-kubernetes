@@ -3,6 +3,9 @@ FROM art-hq.intranet.qualys.com:5001/datalake/centos:${BASE_IMAGE} as builder
 
 LABEL maintainer="aputra@qualys.com"
 
+ENV http_proxy=http://10.113.197.252:80
+ENV https_proxy=https://10.113.197.252:80
+
 WORKDIR /opt
 
 ARG SPARK_VER
@@ -11,13 +14,12 @@ ARG HIVE_VER
 ARG ALLUXIO_VER
 ARG SCALA_VER
 
-ARG REPOSITORY="https://art-hq.intranet.qualys.com/artifactory/dev-common/datalake"
-ARG SPARK="${REPOSITORY}/spark-${SPARK_VER}-bin-without-hadoop.tgz"
-ARG HADOOP="${REPOSITORY}/hadoop-${HADOOP_VER}.tar.gz"
-ARG HIVE="${REPOSITORY}/apache-hive-${HIVE_VER}-bin.tar.gz"
-ARG ALLUXIO="${REPOSITORY}/alluxio-${ALLUXIO_VER}-hadoop-2.9-bin.tar.gz"
-ARG CASSANDRA_JAR="${REPOSITORY}/spark-cassandra-connector_${SCALA_VER}-${SPARK_VER}.jar"
-ARG OJDBS="${REPOSITORY}/ojdbc8-full.tar"
+ARG SPARK="http://apache.claz.org/spark/spark-${SPARK_VER}/spark-${SPARK_VER}-bin-without-hadoop.tgz"
+ARG HADOOP="http://apache.claz.org/hadoop/common/hadoop-${HADOOP_VER}/hadoop-${HADOOP_VER}.tar.gz"
+ARG HIVE="http://apache.claz.org/hive/hive-${HIVE_VER}/apache-hive-${HIVE_VER}-bin.tar.gz"
+ARG ALLUXIO="http://downloads.alluxio.org/downloads/files/${ALLUXIO_VER}/alluxio-${ALLUXIO_VER}-hadoop-2.9-bin.tar.gz"
+ARG CASSANDRA_JAR="http://central.maven.org/maven2/com/datastax/spark/spark-cassandra-connector_${SCALA_VER}/${SPARK_VER}/spark-cassandra-connector_${SCALA_VER}-${SPARK_VER}.jar"
+ARG OJDBS="https://art-hq.intranet.qualys.com/artifactory/dev-common/ojdbc8-full.tar"
 
 ADD ${SPARK} ${HADOOP} ${HIVE} ${ALLUXIO} ${CASSANDRA_JAR} ${OJDBS} ./
 
@@ -36,6 +38,9 @@ RUN mkdir -p /opt/build && \
 COPY spark-defaults.conf hive-site.xml /opt/build/spark-${SPARK_VER}-bin-without-hadoop/conf/
 
 FROM art-hq.intranet.qualys.com:5001/datalake/centos:${BASE_IMAGE}
+
+ENV http_proxy=http://10.113.197.252:80
+ENV https_proxy=https://10.113.197.252:80
 
 ARG SPARK_VER
 ARG HADOOP_VER
