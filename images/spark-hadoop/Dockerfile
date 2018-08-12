@@ -20,7 +20,7 @@ ARG OJDBS="${REPOSITORY}/ojdbc8-full.tar"
 ADD ${SPARK} ${HADOOP} ${ALLUXIO} ${CASSANDRA_JAR} ${OJDBS} ./
 
 RUN mkdir -p /opt/build && \
-    tar -zxf spark-${SPARK_VER}-bin-hadoop2.7.tar && \ 
+    tar -xf spark-${SPARK_VER}-bin-hadoop2.7.tar && \ 
     mv spark-${SPARK_VER}-bin-hadoop2.7 /opt/build/ && \
     tar -zxf hadoop-${HADOOP_VER}.tar.gz && \
     mv hadoop-${HADOOP_VER} /opt/build/ && \
