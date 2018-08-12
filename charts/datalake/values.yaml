@@ -17,14 +17,17 @@ hiveservice:
   affinity: {}
 
 spark:
-  replicaCount: 1
+  spark_master:
+    replicaCount: 1
+  spark_worker:
+    replicaCount: 3
   image:
     spark:
       repository: art-hq.intranet.qualys.com:5001/datalake/spark
-      tag: 0.2.12
+      tag: 0.2.13
       pullPolicy: IfNotPresent
     proxy:
-      repository: art-hq.intranet.qualys.com:5001/k8s.gcr.io/spark-ui-proxy
+      repository: art-hq.intranet.qualys.com:5001/datalake/spark-ui-proxy
       tag: "1.0"
       pullPolicy: IfNotPresent
   ingress:
@@ -38,6 +41,27 @@ spark:
       type: NodePort
       port: 80
       nodePortUI: 30006
+  resources:
+    requests:
+      cpu: 100m
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+hiveserver:
+  replicaCount: 1
+  image:
+    repository: art-hq.intranet.qualys.com:5001/datalake/hiveserver
+    tag: 0.2.3
+    pullPolicy: IfNotPresent
+  service:
+    type: None
+    portHTTP: 10001
+    portUI: 10002
+    nodePortUI: 30004
+    nodePortHTTP: 30005
+  ingress:
+    enabled: false
   resources:
     requests:
       cpu: 100m

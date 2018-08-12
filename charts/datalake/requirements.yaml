@@ -5,6 +5,12 @@ dependencies:
     condition: condition.subchart.hiveservice
     tags:
       - hiveservice
+  - name: hiveserver
+    version: "0.1.0"
+    repository: "file://../hiveserver"
+    condition: condition.subchart.hiveserver
+    tags:
+      - hiveservice
   - name: spark
     version: "0.1.0"
     repository: "file://../spark"

@@ -45,6 +45,20 @@ Create chart name and version as used by the subchart label.
 {{- end -}}
 {{- end -}}
 
+{* Hiveserver Variables *}
+{{- define "datalake.hiveserver.name" -}}
+{{- template "datalake.name" . -}}-hiveserver
+{{- end -}}
+
+{{- define "datalake.hiveserver.fullname" -}}
+{{- $fullname := include "datalake.fullname" . -}}
+{{- if contains "hiveserver" $fullname -}}
+{{- printf "%s" $fullname -}}
+{{- else -}}
+{{- printf "%s-hiveserver" $fullname | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{{- end -}}
+
 {* Spark (Master) Variables *}
 {{- define "datalake.spark-master.hostname" -}}
 spark-master

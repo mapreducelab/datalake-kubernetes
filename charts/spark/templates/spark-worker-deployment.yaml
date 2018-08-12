@@ -7,7 +7,7 @@ metadata:
     chart: {{ template "datalake.subchart" . }}
     release: {{ .Release.Name }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.spark_worker.replicaCount }}
   selector:
     matchLabels:
       app: {{ template "datalake.spark-worker.name" . }}
@@ -40,6 +40,9 @@ spec:
               mountPath: /opt/spark/conf/hive-site.xml
               subPath: hive-site.xml
               readOnly: true
+            - name: spark-config
+              mountPath: /opt/hive/conf/hive-site.xml
+              subPath: hive-site.xml
             - name: spark-default-config
               mountPath: /opt/spark/conf/spark-defaults.conf
               subPath: spark-defaults.conf

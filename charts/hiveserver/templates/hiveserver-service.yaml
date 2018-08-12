@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hiveserver
+  labels:
+    app: {{ template "datalake.hiveserver.name" . }}
+    chart: {{ template "datalake.subchart" . }}
+    release: {{ .Release.Name }}
+spec:
+  clusterIP: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.portHTTP }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ template "datalake.hiveserver.name" . }}
+    release: {{ .Release.Name }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "datalake.hiveserver.fullname" . }}
+  labels:
+    app: {{ template "datalake.hiveserver.name" . }}
+    chart: {{ template "datalake.subchart" . }}
+    release: {{ .Release.Name }}
+spec:
+  type: NodePort
+  ports:
+    - port: {{ .Values.service.portUI }}
+      targetPort: ui
+      protocol: TCP
+      nodePort: {{ .Values.service.nodePortUI }}
+      name: ui
+  selector:
+    app: {{ template "datalake.hiveserver.name" . }}
+    release: {{ .Release.Name }}
