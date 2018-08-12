@@ -33,10 +33,12 @@ RUN mkdir -p /opt/build && \
     mv apache-hive-${HIVE_VER}-bin /opt/build/ && \
     tar -zxf alluxio-${ALLUXIO_VER}-hadoop-2.9-bin.tar.gz && \
     cp alluxio-${ALLUXIO_VER}-hadoop-2.9/client/alluxio-${ALLUXIO_VER}-client.jar /opt/build/spark-${SPARK_VER}-bin-without-hadoop/jars/ && \
+    cp alluxio-${ALLUXIO_VER}-hadoop-2.9/client/alluxio-${ALLUXIO_VER}-client.jar /opt/build/apache-hive-${HIVE_VER}-bin/lib/ && \
     cp spark-cassandra-connector_2.11-2.3.1.jar /opt/build/spark-${SPARK_VER}-bin-without-hadoop/jars/ && \
-    tar -xf ojdbc8-full.tar && cp OJDBC8-Full/ojdbc8.jar /opt/build/spark-${SPARK_VER}-bin-without-hadoop/jars/
+    tar -xf ojdbc8-full.tar && cp OJDBC8-Full/ojdbc8.jar /opt/build/spark-${SPARK_VER}-bin-without-hadoop/jars/ && \
+    cp /opt/build/spark-${SPARK_VER}-bin-without-hadoop/jars/* /opt/build/apache-hive-${HIVE_VER}-bin/lib/
 
-ADD ${TEZ} ${TEZ_DAG} /opt/build/apache-hive-${HIVE_VER}-bin/lib/
+ADD ${TEZ_API} ${TEZ_DAG} /opt/build/apache-hive-${HIVE_VER}-bin/lib/
 
 FROM art-hq.intranet.qualys.com:5001/datalake/centos:${BASE_IMAGE}
 

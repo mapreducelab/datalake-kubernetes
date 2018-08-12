@@ -9,7 +9,7 @@ ALLUXIO_VER = 1.8.0
 SCALA_VER = 2.11
 BASE_IMAGE = centos7.5.1804
 
-HIVESERVER_TAG = 0.2.0
+HIVESERVER_TAG = 0.2.3
 IMAGE_NAME = hiveserver
 REGISTRY = art-hq.intranet.qualys.com:5001
 REPO = datalake
