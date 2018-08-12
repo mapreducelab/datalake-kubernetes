@@ -34,8 +34,6 @@ RUN mkdir -p /opt/build && \
     cp spark-cassandra-connector_2.11-2.3.1.jar /opt/build/spark-${SPARK_VER}-bin-without-hadoop/jars/ && \
     tar -xf ojdbc8-full.tar && cp OJDBC8-Full/ojdbc8.jar /opt/build/spark-${SPARK_VER}-bin-without-hadoop/jars/
 
-COPY spark-defaults.conf hive-site.xml /opt/build/spark-${SPARK_VER}-bin-without-hadoop/conf/
-
 FROM art-hq.intranet.qualys.com:5001/datalake/centos:${BASE_IMAGE}
 
 ENV http_proxy=http://10.113.197.252:80
@@ -58,7 +56,8 @@ ENV SPARK_DIST_CLASSPATH="${HADOOP_HOME}/etc/hadoop:${HADOOP_HOME}/share/hadoop/
 
 RUN yum -y install java-1.8.0-openjdk which && \
     ln -s ${SPARK_HOME} /opt/spark && \
-    ln -s ${HADOOP_HOME} /opt/hadoop
+    ln -s ${HADOOP_HOME} /opt/hadoop && \
+    ln -s ${HIVE_HOME} /opt/hive
 
 COPY --from=builder /opt/build/ /opt/
 COPY start-worker start-master /
