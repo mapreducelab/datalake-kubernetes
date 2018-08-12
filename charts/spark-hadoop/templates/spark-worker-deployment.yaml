@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "datalake.spark-hadoop-worker.fullname" . }}
+  labels:
+    app: {{ template "datalake.spark-hadoop-worker.name" . }}
+    chart: {{ template "datalake.subchart" . }}
+    release: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.spark_worker.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "datalake.spark-hadoop-worker.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "datalake.spark-hadoop-worker.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}-worker
+          image: "{{ .Values.image.spark.repository }}:{{ .Values.image.spark.tag }}"
+          imagePullPolicy: {{ .Values.image.spark.pullPolicy }}
+          command: ["/start-worker"]
+          ports:
+            - name: http
+              containerPort: 8081
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+              initialDelaySeconds: 120
+              timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+              initialDelaySeconds: 60
+              timeoutSeconds: 5
+          volumeMounts:
+            - name: spark-hadoop-config
+              mountPath: /opt/spark/conf/hive-site.xml
+              subPath: hive-site.xml
+              readOnly: true
+            - name: spark-hadoop-config
+              mountPath: /opt/hive/conf/hive-site.xml
+              subPath: hive-site.xml
+            - name: spark-default-config
+              mountPath: /opt/spark/conf/spark-defaults.conf
+              subPath: spark-defaults.conf
+              readOnly: true
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+      volumes:
+        - name: spark-hadoop-config
+          configMap:
+            name: {{ template "datalake.spark-hadoop-master.fullname" . }}
+        - name: spark-default-config
+          configMap:
+            name: {{ template "datalake.spark-hadoop-master.fullname" . }}

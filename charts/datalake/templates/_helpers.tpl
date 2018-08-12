@@ -104,3 +104,49 @@ spark-master
 {{- printf "%s-spark-proxy" $fullname | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- end -}}
+
+{* Spark Hadoop (Master) Variables *}
+{{- define "datalake.spark-hadoop-master.hostname" -}}
+spark-hadoop-master
+{{- end -}}
+
+{{- define "datalake.spark-hadoop-master.name" -}}
+{{- template "datalake.name" . -}}-spark-hadoop-master
+{{- end -}}
+
+{{- define "datalake.spark-hadoop-master.fullname" -}}
+{{- $fullname := include "datalake.fullname" . -}}
+{{- if contains "spark-hadoop-master" $fullname -}}
+{{- printf "%s" $fullname -}}
+{{- else -}}
+{{- printf "%s-spark-hadoop-master" $fullname | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{{- end -}}
+
+{* Spark Hadoop (Worker) Variables *}
+{{- define "datalake.spark-hadoop-worker.name" -}}
+{{- template "datalake.name" . -}}-spark-hadoop-worker
+{{- end -}}
+
+{{- define "datalake.spark-hadoop-worker.fullname" -}}
+{{- $fullname := include "datalake.fullname" . -}}
+{{- if contains "spark-hadoop-worker" $fullname -}}
+{{- printf "%s" $fullname -}}
+{{- else -}}
+{{- printf "%s-spark-hadoop-worker" $fullname | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{{- end -}}
+
+{* Spark Hadoop (Proxy) Variables *}
+{{- define "datalake.spark-hadoop-proxy.name" -}}
+{{- template "datalake.name" . -}}-spark-hadoop-proxy
+{{- end -}}
+
+{{- define "datalake.spark-hadoop-proxy.fullname" -}}
+{{- $fullname := include "datalake.fullname" . -}}
+{{- if contains "spark-hadoop-proxy" $fullname -}}
+{{- printf "%s" $fullname -}}
+{{- else -}}
+{{- printf "%s-spark-hadoop-proxy" $fullname | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{{- end -}}

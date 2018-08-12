@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "datalake.spark-proxy.fullname" . }}
+  name: {{ template "datalake.spark-hadoop-proxy.fullname" . }}
   labels:
-    app: {{ template "datalake.spark-proxy.name" . }}
+    app: {{ template "datalake.spark-hadoop-proxy.name" . }}
     chart: {{ template "datalake.subchart" . }}
     release: {{ .Release.Name }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ template "datalake.spark-proxy.name" . }}
+      app: {{ template "datalake.spark-hadoop-proxy.name" . }}
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ template "datalake.spark-proxy.name" . }}
+        app: {{ template "datalake.spark-hadoop-proxy.name" . }}
         release: {{ .Release.Name }}
     spec:
       containers:
@@ -39,7 +39,7 @@ spec:
               initialDelaySeconds: 90
               timeoutSeconds: 5
           args:
-            - spark-master:8080
+            - spark-hadoop-master:8080
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- with .Values.nodeSelector }}
