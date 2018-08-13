@@ -23,3 +23,9 @@ dependencies:
     condition: condition.subchart.spark-hadoop
     tags:
       - base
+  - name: postgresql
+    version: "0.1.0"
+    repository: "file://../postgresql"
+    condition: condition.subchart.postgresql
+    tags:
+      - base

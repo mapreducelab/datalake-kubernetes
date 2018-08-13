@@ -42,10 +42,6 @@ data:
         <value>alluxio://sandbox01.p02.eng.sjc01.qualys.com:19998/sparkeventLog</value>
       </property>
       <property>
-        <name>datanucleus.autoCreateSchema</name>
-        <value>false</value>
-      </property>
-      <property>
         <name>alluxio.user.file.readtype.default</name>
         <value>NO_CACHE</value>
       </property>
@@ -55,6 +51,10 @@ data:
       </property>
       <property>
         <name>hive.metastore.event.db.notification.api.auth</name>
+        <value>false</value>
+      </property>
+      <property>
+        <name>datanucleus.autoCreateSchema</name>
         <value>false</value>
       </property>
     </configuration>

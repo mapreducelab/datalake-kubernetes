@@ -150,3 +150,21 @@ spark-hadoop-master
 {{- printf "%s-spark-hadoop-proxy" $fullname | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- end -}}
+
+{* PostgreSQL Variables *}
+{{- define "datalake.postgresql.name" -}}
+{{- template "datalake.name" . -}}-postgresql
+{{- end -}}
+
+{{- define "datalake.postgresql.fullname" -}}
+{{- $fullname := include "datalake.fullname" . -}}
+{{- if contains "postgresql" $fullname -}}
+{{- printf "%s" $fullname -}}
+{{- else -}}
+{{- printf "%s-postgresql" $fullname | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "datalake.postgresql.secretName" -}}
+{{ default (include "datalake.postgresql.fullname" .) .Values.existingSecret }}
+{{- end -}}
