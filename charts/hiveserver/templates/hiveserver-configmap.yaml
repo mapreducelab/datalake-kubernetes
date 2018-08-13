@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "datalake.hiveservice.fullname" . }}
+  name: {{ template "datalake.hiveserver.fullname" . }}
   labels:
-    app: {{ template "datalake.hiveservice.name" . }}
+    app: {{ template "datalake.hiveserver.name" . }}
     chart: {{ template "datalake.subchart" . }}
     release: {{ .Release.Name }}
 data:
@@ -26,6 +26,14 @@ data:
         <value>hive</value>
       </property>
       <property>
+        <name>datanucleus.autoCreateSchema</name>
+        <value>false</value>
+      </property>
+      <property>
+        <name>hive.execution.engine</name>
+        <value>spark</value>
+      </property>
+      <property>
         <name>fs.alluxio.impl</name>
         <value>alluxio.hadoop.FileSystem</value>
       </property>
@@ -38,8 +46,40 @@ data:
         <value>alluxio://sandbox01.p02.eng.sjc01.qualys.com:19998</value>
       </property>
       <property>
+        <name>spark.master</name>
+        <value>spark://spark-master:6066</value>
+      </property>
+      <property>
         <name>spark.eventLog.dir</name>
         <value>alluxio://sandbox01.p02.eng.sjc01.qualys.com:19998/sparkeventLog</value>
+      </property>
+      <property>
+        <name>spark.home</name>
+        <value>/opt/spark</value>
+      </property>
+      <property>
+        <name>hive.server2.transport.mode</name>
+        <value>http</value>
+      </property>
+      <property>
+        <name>spark.executor.memory</name>
+        <value>7g</value>
+      </property>
+      <property>
+        <name>spark.driver.memory</name>
+        <value>1g</value>
+      </property>
+      <property>
+        <name>spark.executor.memoryOverhead</name>
+        <value>384m</value>
+      </property>
+      <property>
+        <name>spark.driver.memoryOverhead</name>
+        <value>384m</value>
+      </property>
+      <property>
+        <name>spark.scheduler.minRegisteredResourcesRatio</name>
+        <value>0.8</value>
       </property>
       <property>
         <name>alluxio.user.file.readtype.default</name>
@@ -50,11 +90,7 @@ data:
         <value>true</value>
       </property>
       <property>
-        <name>hive.metastore.event.db.notification.api.auth</name>
-        <value>false</value>
-      </property>
-      <property>
-        <name>datanucleus.autoCreateSchema</name>
-        <value>false</value>
+        <name>hive.metastore.uris</name>
+        <value>thrift://hiveservice:9083</value>
       </property>
     </configuration>

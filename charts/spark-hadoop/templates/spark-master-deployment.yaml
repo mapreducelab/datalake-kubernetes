@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "datalake.spark-master.fullname" . }}
+  name: {{ template "datalake.spark-hadoop-master.fullname" . }}
   labels:
-    app: {{ template "datalake.spark-master.name" . }}
+    app: {{ template "datalake.spark-hadoop-master.name" . }}
     chart: {{ template "datalake.subchart" . }}
     release: {{ .Release.Name }}
 spec:
   replicas: {{ .Values.spark_master.replicaCount }}
   selector:
     matchLabels:
-      app: {{ template "datalake.spark-master.name" . }}
+      app: {{ template "datalake.spark-hadoop-master.name" . }}
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ template "datalake.spark-master.name" . }}
+        app: {{ template "datalake.spark-hadoop-master.name" . }}
         release: {{ .Release.Name }}
     spec:
-      hostname: {{ template "datalake.spark-master.hostname" . }}
+      hostname: {{ template "datalake.spark-hadoop-master.hostname" . }}
       containers:
         - name: {{ .Chart.Name }}-master
           image: "{{ .Values.image.spark.repository }}:{{ .Values.image.spark.tag }}"
@@ -44,11 +44,11 @@ spec:
               initialDelaySeconds: 60
               timeoutSeconds: 5
           volumeMounts:
-            - name: spark-config
+            - name: spark-hadoop-config
               mountPath: /opt/spark/conf/hive-site.xml
               subPath: hive-site.xml
               readOnly: true
-            - name: spark-config
+            - name: spark-hadoop-config
               mountPath: /opt/hive/conf/hive-site.xml
               subPath: hive-site.xml
               readOnly: true
@@ -71,9 +71,9 @@ spec:
 {{ toYaml . | indent 8 }}
     {{- end }}
       volumes:
-        - name: spark-config
+        - name: spark-hadoop-config
           configMap:
-            name: {{ template "datalake.spark-master.fullname" . }}
+            name: {{ template "datalake.spark-hadoop-master.fullname" . }}
         - name: spark-default-config
           configMap:
-            name: {{ template "datalake.spark-master.fullname" . }}
+            name: {{ template "datalake.spark-hadoop-master.fullname" . }}

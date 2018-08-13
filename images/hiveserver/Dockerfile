@@ -18,6 +18,8 @@ ARG HIVE="${REPOSITORY}/apache-hive-${HIVE_VER}-bin.tar.gz"
 ARG ALLUXIO="${REPOSITORY}/alluxio-${ALLUXIO_VER}-hadoop-2.9-bin.tar.gz"
 ARG CASSANDRA_JAR="${REPOSITORY}/spark-cassandra-connector_${SCALA_VER}-${SPARK_VER}.jar"
 ARG OJDBS="${REPOSITORY}/ojdbc8-full.tar"
+ARG TEZ_API="${REPOSITORY}/tez-api-0.9.1.jar"
+ARG TEZ_DAG="${REPOSITORY}/tez-dag-0.9.1.jar"
 
 ADD ${SPARK} ${HADOOP} ${HIVE} ${ALLUXIO} ${CASSANDRA_JAR} ${OJDBS} ./
 
@@ -31,9 +33,12 @@ RUN mkdir -p /opt/build && \
     mv apache-hive-${HIVE_VER}-bin /opt/build/ && \
     tar -zxf alluxio-${ALLUXIO_VER}-hadoop-2.9-bin.tar.gz && \
     cp alluxio-${ALLUXIO_VER}-hadoop-2.9/client/alluxio-${ALLUXIO_VER}-client.jar /opt/build/spark-${SPARK_VER}-bin-without-hadoop/jars/ && \
+    cp alluxio-${ALLUXIO_VER}-hadoop-2.9/client/alluxio-${ALLUXIO_VER}-client.jar /opt/build/apache-hive-${HIVE_VER}-bin/lib/ && \
     cp spark-cassandra-connector_2.11-2.3.1.jar /opt/build/spark-${SPARK_VER}-bin-without-hadoop/jars/ && \
     tar -xf ojdbc8-full.tar && cp OJDBC8-Full/ojdbc8.jar /opt/build/spark-${SPARK_VER}-bin-without-hadoop/jars/ && \
     cp /opt/build/spark-${SPARK_VER}-bin-without-hadoop/jars/* /opt/build/apache-hive-${HIVE_VER}-bin/lib/
+
+ADD ${TEZ_API} ${TEZ_DAG} /opt/build/apache-hive-${HIVE_VER}-bin/lib/
 
 FROM art-hq.intranet.qualys.com:5001/datalake/centos:${BASE_IMAGE}
 
@@ -61,4 +66,5 @@ RUN yum -y install java-1.8.0-openjdk which && \
     ln -s ${HIVE_HOME} /opt/hive
 
 COPY --from=builder /opt/build/ /opt/
-COPY start-worker start-master /
+
+CMD ["hiveserver2"]

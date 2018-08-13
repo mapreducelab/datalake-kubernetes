@@ -1,5 +1,5 @@
-all: spark
-spark: build push clean
+all: hiveserver
+hiveserver: build push clean
 .PHONY: build push clean
 
 SPARK_VER = 2.3.1
@@ -9,8 +9,8 @@ ALLUXIO_VER = 1.8.0
 SCALA_VER = 2.11
 BASE_IMAGE = centos7.5.1804
 
-SPARK_TAG = 0.2.13
-IMAGE_NAME = spark
+HIVESERVER_TAG = 0.2.3
+IMAGE_NAME = hiveserver
 REGISTRY = art-hq.intranet.qualys.com:5001
 REPO = datalake
 
@@ -23,12 +23,12 @@ build:
 		--build-arg SCALA_VER=${SCALA_VER} \
 		--build-arg BASE_IMAGE=${BASE_IMAGE} \
 		-t $(REGISTRY)/$(REPO)/$(IMAGE_NAME) .
-	docker tag $(REGISTRY)/$(REPO)/$(IMAGE_NAME) $(REGISTRY)/$(REPO)/$(IMAGE_NAME):$(SPARK_TAG)
+	docker tag $(REGISTRY)/$(REPO)/$(IMAGE_NAME) $(REGISTRY)/$(REPO)/$(IMAGE_NAME):$(HIVESERVER_TAG)
 
 push:
 	docker push $(REGISTRY)/$(REPO)/$(IMAGE_NAME)
-	docker push $(REGISTRY)/$(REPO)/$(IMAGE_NAME):$(SPARK_TAG)
+	docker push $(REGISTRY)/$(REPO)/$(IMAGE_NAME):$(HIVESERVER_TAG)
 
 clean:
-	docker rmi $(REGISTRY)/$(REPO)/$(IMAGE_NAME):$(SPARK_TAG) || :
+	docker rmi $(REGISTRY)/$(REPO)/$(IMAGE_NAME):$(HIVESERVER_TAG) || :
 	docker rmi $(REGISTRY)/$(REPO)/$(IMAGE_NAME) || :

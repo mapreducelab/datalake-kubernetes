@@ -1,14 +1,30 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "datalake.hiveservice.fullname" . }}
+  name: {{ template "datalake.spark-master.fullname" . }}
   labels:
-    app: {{ template "datalake.hiveservice.name" . }}
+    app: {{ template "datalake.spark-master.name" . }}
     chart: {{ template "datalake.subchart" . }}
     release: {{ .Release.Name }}
 data:
+  spark-defaults.conf: |
+    spark.master spark://spark-master:7077
+    spark.app.id QualysSpark
+    spark.hadoop.datanucleus.autoCreateSchema false
+    spark.executor.memory 8g
+    spark.executor.memoryOverhead   384m
+    spark.driver.memory 4g
+    spark.driver.memoryOverhead  384m
+    spark.scheduler.minRegisteredResourcesRatio 0.8
+    spark.sql.hive.metastore.version 3.1.0
+    spark.sql.hive.metastore.schema.verification false
+
   hive-site.xml: |
     <configuration>
+      <property>
+        <name>hive.metastore.schema.verification</name>
+        <value>false</value>
+      </property>
       <property>
         <name>javax.jdo.option.ConnectionURL</name>
         <value>jdbc:postgresql://postgresql:5432/metastore</value>
@@ -26,6 +42,14 @@ data:
         <value>hive</value>
       </property>
       <property>
+        <name>datanucleus.autoCreateSchema</name>
+        <value>false</value>
+      </property>
+      <property>
+        <name>hive.execution.engine</name>
+        <value>spark</value>
+      </property>
+      <property>
         <name>fs.alluxio.impl</name>
         <value>alluxio.hadoop.FileSystem</value>
       </property>
@@ -38,23 +62,15 @@ data:
         <value>alluxio://sandbox01.p02.eng.sjc01.qualys.com:19998</value>
       </property>
       <property>
+        <name>spark.master</name>
+        <value>spark://spark-master:6066</value>
+      </property>
+      <property>
         <name>spark.eventLog.dir</name>
         <value>alluxio://sandbox01.p02.eng.sjc01.qualys.com:19998/sparkeventLog</value>
       </property>
       <property>
-        <name>alluxio.user.file.readtype.default</name>
-        <value>NO_CACHE</value>
-      </property>
-      <property>
-        <name>hive.metastore.schema.verification</name>
-        <value>true</value>
-      </property>
-      <property>
-        <name>hive.metastore.event.db.notification.api.auth</name>
-        <value>false</value>
-      </property>
-      <property>
-        <name>datanucleus.autoCreateSchema</name>
-        <value>false</value>
+        <name>spark.home</name>
+        <value>/opt/spark</value>
       </property>
     </configuration>

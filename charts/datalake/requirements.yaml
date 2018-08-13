@@ -4,10 +4,28 @@ dependencies:
     repository: "file://../hiveservice"
     condition: condition.subchart.hiveservice
     tags:
-      - hiveservice
-  # - name: spark
-  #   version: "0.1.0"
-  #   repository: "file://../spark"
-  #   condition: condition.subchart.spark
-  #   tags:
-  #     - spark
+      - base
+  - name: hiveserver
+    version: "0.1.0"
+    repository: "file://../hiveserver"
+    condition: condition.subchart.hiveserver
+    tags:
+      - base
+  - name: spark
+    version: "0.1.0"
+    repository: "file://../spark"
+    condition: condition.subchart.spark
+    tags:
+      - base
+  - name: spark-hadoop
+    version: "0.1.0"
+    repository: "file://../spark-hadoop"
+    condition: condition.subchart.spark-hadoop
+    tags:
+      - base
+  - name: postgresql
+    version: "0.1.0"
+    repository: "file://../postgresql"
+    condition: condition.subchart.postgresql
+    tags:
+      - base

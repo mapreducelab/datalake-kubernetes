@@ -1,46 +1,42 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "datalake.spark-master.fullname" . }}
+  name: {{ template "datalake.spark-worker.fullname" . }}
   labels:
-    app: {{ template "datalake.spark-master.name" . }}
+    app: {{ template "datalake.spark-worker.name" . }}
     chart: {{ template "datalake.subchart" . }}
     release: {{ .Release.Name }}
 spec:
-  replicas: {{ .Values.spark_master.replicaCount }}
+  replicas: {{ .Values.spark_worker.replicaCount }}
   selector:
     matchLabels:
-      app: {{ template "datalake.spark-master.name" . }}
+      app: {{ template "datalake.spark-worker.name" . }}
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ template "datalake.spark-master.name" . }}
+        app: {{ template "datalake.spark-worker.name" . }}
         release: {{ .Release.Name }}
     spec:
-      hostname: {{ template "datalake.spark-master.hostname" . }}
       containers:
-        - name: {{ .Chart.Name }}-master
+        - name: {{ .Chart.Name }}-worker
           image: "{{ .Values.image.spark.repository }}:{{ .Values.image.spark.tag }}"
           imagePullPolicy: {{ .Values.image.spark.pullPolicy }}
-          command: ["/start-master"]
+          command: ["/start-worker"]
           ports:
-            - name: rpc
-              containerPort: 7077
-              protocol: TCP
-            - name: webui
-              containerPort: 8080
+            - name: http
+              containerPort: 8081
               protocol: TCP
           livenessProbe:
             httpGet:
               path: /
-              port: webui
+              port: http
               initialDelaySeconds: 120
               timeoutSeconds: 5
           readinessProbe:
             httpGet:
               path: /
-              port: webui
+              port: http
               initialDelaySeconds: 60
               timeoutSeconds: 5
           volumeMounts:
@@ -51,7 +47,6 @@ spec:
             - name: spark-config
               mountPath: /opt/hive/conf/hive-site.xml
               subPath: hive-site.xml
-              readOnly: true
             - name: spark-default-config
               mountPath: /opt/spark/conf/spark-defaults.conf
               subPath: spark-defaults.conf
