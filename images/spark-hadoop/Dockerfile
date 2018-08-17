@@ -38,7 +38,6 @@ ARG SPARK_VER
 ARG HADOOP_VER
 ARG ALLUXIO_VER
 ARG SCALA_VER_VER
-ARG TINI_VER
 
 ENV JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk \
     SPARK_HOME=/opt/spark-${SPARK_VER}-bin-hadoop2.7 \
