@@ -53,6 +53,7 @@ RUN yum -y install java-1.8.0-openjdk which && \
 
 COPY --from=builder /opt/build/ /opt/
 COPY start-worker start-master /
+COPY entrypoint.sh /opt/
 
 WORKDIR /opt/spark/work-dir
 
