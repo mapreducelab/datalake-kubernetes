@@ -8,7 +8,7 @@ ALLUXIO_VER = 1.8.0
 SCALA_VER = 2.11
 BASE_IMAGE = centos7.5.1804
 
-SPARK_TAG = 0.2.1
+SPARK_TAG = 0.2.2
 IMAGE_NAME = spark-hadoop
 REGISTRY = art-hq.intranet.qualys.com:5001
 REPO = datalake
