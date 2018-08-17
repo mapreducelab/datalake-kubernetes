@@ -38,6 +38,7 @@ ARG SPARK_VER
 ARG HADOOP_VER
 ARG ALLUXIO_VER
 ARG SCALA_VER_VER
+ARG TINI_VER
 
 ENV JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk \
     SPARK_HOME=/opt/spark-${SPARK_VER}-bin-hadoop2.7 \
@@ -54,6 +55,8 @@ RUN yum -y install java-1.8.0-openjdk which && \
 COPY --from=builder /opt/build/ /opt/
 COPY start-worker start-master /
 COPY entrypoint.sh /opt/
+ADD https://github.com/krallin/tini/releases/download/v0.18.0/tini /tini
+RUN chmod +x /tini
 
 WORKDIR /opt/spark/work-dir
 

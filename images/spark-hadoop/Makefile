@@ -6,9 +6,10 @@ SPARK_VER = 2.3.1
 HADOOP_VER = 2.9.1
 ALLUXIO_VER = 1.8.0
 SCALA_VER = 2.11
+TINI_VER = v0.18.0
 BASE_IMAGE = centos7.5.1804
 
-SPARK_TAG = 0.2.2
+SPARK_TAG = 0.2.3
 IMAGE_NAME = spark-hadoop
 REGISTRY = art-hq.intranet.qualys.com:5001
 REPO = datalake
@@ -19,6 +20,7 @@ build:
 		--build-arg HADOOP_VER=${HADOOP_VER} \
 		--build-arg ALLUXIO_VER=${ALLUXIO_VER} \
 		--build-arg SCALA_VER=${SCALA_VER} \
+		--build-arg TINI_VER=${TINI_VER} \
 		--build-arg BASE_IMAGE=${BASE_IMAGE} \
 		-t $(REGISTRY)/$(REPO)/$(IMAGE_NAME) .
 	docker tag $(REGISTRY)/$(REPO)/$(IMAGE_NAME) $(REGISTRY)/$(REPO)/$(IMAGE_NAME):$(SPARK_TAG)
