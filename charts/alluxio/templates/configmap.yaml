@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alluxio-config
+  namespace: default
+data:
+  ALLUXIO_CONFIG: |-
+    alluxio.security.authentication.type=SIMPLE
+    alluxio.security.login.username=root
+    alluxio.master.hostname=alluxio-master
+    alluxio.underfs.address=/gluster
+    alluxio.worker.memory.size=2GB

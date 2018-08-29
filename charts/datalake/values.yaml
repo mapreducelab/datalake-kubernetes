@@ -1,3 +1,40 @@
+zeppelin:
+  replicaCount: 1
+  image:
+    repository: art-hq.intranet.qualys.com:5001/k8s.gcr.io/zeppelin
+    tag: 0.1.26
+    pullPolicy: IfNotPresent
+  service:
+    type: NodePort
+    port: 8080
+    nodePortUI: 30009
+  ingress:
+    enabled: false
+  resources:
+    requests:
+      cpu: 100m
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
+alluxio:
+  replicaCount: 1
+  image:
+    repository: art-hq.intranet.qualys.com:5001/datalake/alluxio
+    tag: 0.1.2
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 80
+    nodePortRPC: 30001
+    nodePortUI: 30002
+  ingress:
+    enabled: false
+  resources: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
 hiveservice:
   replicaCount: 1
   image:

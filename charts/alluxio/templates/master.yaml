@@ -1,0 +1,87 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: alluxio-master
+  labels:
+    app: alluxio
+spec:
+  ports:
+  - port: 19998
+    name: rpc
+  - port: 19999
+    name: web
+  clusterIP: None
+  selector:
+    app: alluxio-master
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: alluxio-pv-claim
+spec:
+  storageClassName: standard
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: alluxio-master
+spec:
+  selector:
+    matchLabels:
+      app: alluxio-master
+  serviceName: "alluxio-master"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: alluxio-master
+    spec:
+      hostNetwork: true
+      hostPID: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+        - name: alluxio-master
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          pullPolicy: {{ .Values.image.pullPolicy | quote }}
+          resources:
+            requests:
+              cpu: "0.5"
+              memory: "512M"
+            limits:
+              cpu: "1"
+              memory: "1024M"
+          command: ["/entrypoint.sh"]
+          args: ["master"]
+          envFrom:
+          - configMapRef:
+              name: alluxio-config
+          ports:
+          - containerPort: 19998
+            name: rpc
+          - containerPort: 19999
+            name: web
+          volumeMounts:
+            - name: alluxio-journal
+              mountPath: /journal
+            - name: alluxio-domain
+              mountPath: /opt/domain
+            - name: alluxio-gluster
+              mountPath: /gluster
+      restartPolicy: Always
+      volumes:
+        - name: alluxio-journal
+          persistentVolumeClaim:
+            claimName: alluxio-pv-claim
+        - name: alluxio-domain
+          hostPath:
+            path: /tmp/domain
+            type: Directory
+        - name: alluxio-gluster
+          hostPath:
+            path: /mnt
+            type: Directory

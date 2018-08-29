@@ -29,3 +29,16 @@ dependencies:
     condition: condition.subchart.postgresql
     tags:
       - base
+  - name: alluxio
+    version: "0.1.0"
+    repository: "file://../alluxio"
+    condition: condition.subchart.alluxio
+    tags:
+      - base
+      - alluxio
+  - name: zeppelin
+    version: "0.1.0"
+    repository: "file://../zeppelin"
+    condition: condition.subchart.zeppelin
+    tags:
+      - base

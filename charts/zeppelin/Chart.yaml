@@ -1,0 +1,4 @@
+apiVersion: v1
+name: zeppelin
+version: 0.1.0
+description: Zeppelin for DataLake on Kubernetes.

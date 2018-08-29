@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hiveservice-external
+  labels:
+    app: {{ template "datalake.hiveservice.name" . }}
+    chart: {{ template "datalake.subchart" . }}
+    release: {{ .Release.Name }}
+spec:
+  type: NodePort
+  ports:
+    - port: {{ .Values.service.portThrift }}
+      targetPort: thrift
+      protocol: TCP
+      name: thrift
+  selector:
+    app: {{ template "datalake.hiveservice.name" . }}
+    release: {{ .Release.Name }}

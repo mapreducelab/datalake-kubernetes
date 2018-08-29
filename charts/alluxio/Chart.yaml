@@ -1,0 +1,4 @@
+apiVersion: v1
+name: alluxio
+version: 0.1.0
+description: Alluxio for DataLake on Kubernetes.
