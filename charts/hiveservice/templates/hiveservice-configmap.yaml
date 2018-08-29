@@ -35,11 +35,11 @@ data:
       </property>
       <property>
         <name>fs.defaultFS</name>
-        <value>alluxio://sandbox01.p02.eng.sjc01.qualys.com:19998</value>
+        <value>alluxio://alluxio-master:19998</value>
       </property>
       <property>
         <name>spark.eventLog.dir</name>
-        <value>alluxio://sandbox01.p02.eng.sjc01.qualys.com:19998/sparkeventLog</value>
+        <value>alluxio://alluxio-master:19998/sparkeventLog</value>
       </property>
       <property>
         <name>alluxio.user.file.readtype.default</name>

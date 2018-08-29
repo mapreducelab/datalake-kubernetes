@@ -168,3 +168,35 @@ spark-hadoop-master
 {{- define "datalake.postgresql.secretName" -}}
 {{ default (include "datalake.postgresql.fullname" .) .Values.existingSecret }}
 {{- end -}}
+
+{* Alluxio Variables *}
+{{- define "datalake.alluxio.name" -}}
+{{- template "datalake.name" . -}}-alluxio
+{{- end -}}
+
+{{- define "datalake.alluxio.fullname" -}}
+{{- $fullname := include "datalake.fullname" . -}}
+{{- if contains "alluxio" $fullname -}}
+{{- printf "%s" $fullname -}}
+{{- else -}}
+{{- printf "%s-alluxio" $fullname | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{{- end -}}
+
+{* Zeppelin Variables *}
+{{- define "datalake.zeppelin.name" -}}
+{{- template "datalake.name" . -}}-zeppelin
+{{- end -}}
+
+{{- define "datalake.zeppelin.fullname" -}}
+{{- $fullname := include "datalake.fullname" . -}}
+{{- if contains "zeppelin" $fullname -}}
+{{- printf "%s" $fullname -}}
+{{- else -}}
+{{- printf "%s-zeppelin" $fullname | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "datalake.zeppelin.hostname" -}}
+{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
