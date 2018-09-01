@@ -2,12 +2,18 @@
 
 Collection of docker images, helm charts and other tools needed to build DataLake on Kubernetes.
 
-### Usage
+## Usage
+
+### Install Tiller
+```
+kubectl create clusterrolebinding add-on-cluster-admin --clusterrole=cluster-admin --serviceaccount=kube-system:default
+helm init --tiller-image=art-hq.intranet.qualys.com:5001/k8s.gcr.io/kubernetes-helm/tiller:v2.9.1
+```
 
 ```
-helm dependency build charts/datalake && helm install -n mylake charts/datalake --set tags.base=true
+helm dependency build charts/datalake && helm install -n mylake charts/datalake --set tags.base=true --debug
 
-helm dependency build charts/datalake && helm install -n mylake charts/datalake --set tags.base=false --set tags.alluxio=true
+helm dependency build charts/datalake && helm install -n mylake charts/datalake --set tags.base=false --set tags.alluxio=true --debug
 ```
 
 ### Create tmp folder for PostgreSQL

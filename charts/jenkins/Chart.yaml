@@ -1,0 +1,4 @@
+apiVersion: v1
+name: jenkins
+version: 0.1.0
+description: Jenkins for DataLake on Kubernetes.
