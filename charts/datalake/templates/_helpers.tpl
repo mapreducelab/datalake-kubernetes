@@ -6,6 +6,11 @@ Create a short app name.
 datalake
 {{- end -}}
 
+{{- define "datalake.domain" -}}
+p02.eng.sjc01.qualys.com
+{{- end -}}
+
+
 {{/*
 Create a fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).

@@ -1,9 +1,12 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: alluxio-journal-volume
+  namespace: {{ .Values.namespace | quote }}
+  name: {{ template "datalake.alluxio.fullname" . }}
   labels:
-    type: local
+    app: {{ template "datalake.alluxio.name" . }}
+    chart: {{ template "datalake.subchart" . }}
+    release: {{ .Release.Name }}
 spec:
   storageClassName: standard
   capacity:

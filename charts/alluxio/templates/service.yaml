@@ -1,7 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: alluxio-master-external
+  name: alluxio-master
+  namespace: {{ .Values.namespace | quote }}
   labels:
     app: {{ template "datalake.alluxio.name" . }}
     chart: {{ template "datalake.subchart" . }}
@@ -10,10 +11,8 @@ spec:
   ports:
   - port: 19998
     name: rpc
-    nodePort: {{ .Values.service.nodePortRPC }}
   - port: 19999
     name: web
-    nodePort: {{ .Values.service.nodePortUI }}
-  type: NodePort
+  clusterIP: None
   selector:
     app: alluxio-master
