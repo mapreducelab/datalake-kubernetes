@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins
+  labels:
+    app: {{ template "datalake.jenkins.name" . }}
+    chart: {{ template "datalake.subchart" . }}
+    release: {{ .Release.Name }}
+spec:
+  type: {{ .Values.service.type | quote }}
+  ports:
+    - port: {{ .Values.service.ui }}
+      targetPort: ui
+      protocol: TCP
+      nodePort: {{ .Values.service.nodePortUI }}
+      name: ui
+  selector:
+    app: {{ template "datalake.jenkins.name" . }}
+    release: {{ .Release.Name }}

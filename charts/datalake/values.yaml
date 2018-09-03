@@ -1,3 +1,22 @@
+jenkins:
+  replicaCount: 1
+  image:
+    repository: art-hq.intranet.qualys.com:5001/datalake/jenkins
+    tag: 0.1.0
+    pullPolicy: IfNotPresent
+  ingress:
+    enabled: false
+  service:
+    type: NodePort
+    nodePortUI: 30010
+    ui: 8080
+  resources:
+    requests:
+      cpu: 100m
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
+
 zeppelin:
   replicaCount: 1
   image:

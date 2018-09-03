@@ -1,0 +1,10 @@
+kubernetes
+workflow-job
+workflow-aggregator
+credentials-binding
+git
+bitbucket
+blueocean-bitbucket-pipeline
+cloudbees-bitbucket-branch-source
+bitbucket-approve
+blueocean

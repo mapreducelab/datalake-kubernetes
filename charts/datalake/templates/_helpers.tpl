@@ -200,3 +200,17 @@ spark-hadoop-master
 {{- define "datalake.zeppelin.hostname" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{* Jenkins Variables *}
+{{- define "datalake.jenkins.name" -}}
+{{- template "datalake.name" . -}}-jenkins
+{{- end -}}
+
+{{- define "datalake.jenkins.fullname" -}}
+{{- $fullname := include "datalake.fullname" . -}}
+{{- if contains "jenkins" $fullname -}}
+{{- printf "%s" $fullname -}}
+{{- else -}}
+{{- printf "%s-jenkins" $fullname | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{{- end -}}
