@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "datalake.zeppelin.fullname" . }}
+  namespace: {{ .Values.namespace | quote }}
   labels:
     app: {{ template "datalake.zeppelin.name" . }}
     chart: {{ template "datalake.subchart" . }}

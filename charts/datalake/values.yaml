@@ -24,6 +24,7 @@ jenkins:
   affinity: {}
 
 zeppelin:
+  namespace: default
   replicaCount: 1
   image:
     repository: art-hq.intranet.qualys.com:5001/k8s.gcr.io/zeppelin
@@ -32,9 +33,15 @@ zeppelin:
   service:
     type: NodePort
     port: 8080
-    nodePortUI: 30009
   ingress:
-    enabled: false
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/rewrite-target: /
+      kubernetes.io/app-root: /zeppelin
+    path: /
+    hosts:
+      - zeppelin
   resources:
     requests:
       cpu: 100m
@@ -89,7 +96,7 @@ spark:
   spark_master:
     replicaCount: 1
   spark_worker:
-    replicaCount: 3
+    replicaCount: 1
   image:
     spark:
       repository: art-hq.intranet.qualys.com:5001/datalake/spark
@@ -121,7 +128,7 @@ spark-hadoop:
   spark_master:
     replicaCount: 1
   spark_worker:
-    replicaCount: 3
+    replicaCount: 1
   image:
     spark:
       repository: art-hq.intranet.qualys.com:5001/datalake/spark-hadoop
@@ -172,7 +179,7 @@ hiveserver:
 
 postgresql:
   image: "art-hq.intranet.qualys.com:5001/datalake/postgres"
-  imageTag: "9.6.9"
+  imageTag: "9.6.9-hive-3.1.0"
   postgresUser: hive
   pullPolicy: IfNotPresent
   ## Default: random 10 character string

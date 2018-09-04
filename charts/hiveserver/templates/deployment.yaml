@@ -40,7 +40,7 @@ spec:
             httpGet:
               path: /
               port: ui
-              initialDelaySeconds: 60
+              initialDelaySeconds: 120
               timeoutSeconds: 5
           volumeMounts:
             - name: hive-config
