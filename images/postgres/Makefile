@@ -1,10 +1,10 @@
 all: build push clean
 .PHONY: build push clean
 
-BASE_IMAGE = jenkins/jenkins:latest
+BASE_IMAGE = art-hq.intranet.qualys.com:5001/datalake/postgres:9.6.9
 
-IMAGE_TAG = 0.1.1
-IMAGE_NAME = jenkins
+IMAGE_TAG = 9.6.9-hive-3.1.0
+IMAGE_NAME = postgres
 REGISTRY = art-hq.intranet.qualys.com:5001
 REPO = datalake
 

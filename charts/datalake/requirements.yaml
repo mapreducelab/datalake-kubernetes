@@ -18,6 +18,7 @@ dependencies:
     repository: "file://../spark"
     condition: condition.subchart.spark
     tags:
+      - spark
       - base
 
   - name: spark-hadoop

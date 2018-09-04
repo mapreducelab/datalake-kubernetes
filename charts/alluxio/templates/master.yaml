@@ -1,23 +1,12 @@
 apiVersion: v1
-kind: Service
-metadata:
-  name: alluxio-master
-  labels:
-    app: alluxio
-spec:
-  ports:
-  - port: 19998
-    name: rpc
-  - port: 19999
-    name: web
-  clusterIP: None
-  selector:
-    app: alluxio-master
----
-apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: alluxio-pv-claim
+  namespace: {{ .Values.namespace | quote }}
+  name: {{ template "datalake.alluxio.fullname" . }}
+  labels:
+    app: {{ template "datalake.alluxio.name" . }}
+    chart: {{ template "datalake.subchart" . }}
+    release: {{ .Release.Name }}
 spec:
   storageClassName: standard
   accessModes:
@@ -26,10 +15,15 @@ spec:
     requests:
       storage: 1Gi
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
+  namespace: {{ .Values.namespace | quote }}
   name: alluxio-master
+  labels:
+    app: {{ template "datalake.alluxio.name" . }}
+    chart: {{ template "datalake.subchart" . }}
+    release: {{ .Release.Name }}
 spec:
   selector:
     matchLabels:
@@ -59,7 +53,7 @@ spec:
           args: ["master"]
           envFrom:
           - configMapRef:
-              name: alluxio-config
+              name: {{ template "datalake.alluxio.fullname" . }}
           ports:
           - containerPort: 19998
             name: rpc
@@ -76,12 +70,12 @@ spec:
       volumes:
         - name: alluxio-journal
           persistentVolumeClaim:
-            claimName: alluxio-pv-claim
+            claimName: {{ template "datalake.alluxio.fullname" . }}
         - name: alluxio-domain
           hostPath:
-            path: /tmp/domain
+            path: {{ .Values.hostShortCircuit | quote }}
             type: Directory
         - name: alluxio-gluster
           hostPath:
-            path: /mnt
+            path: {{ .Values.hostUnderfs | quote }}
             type: Directory

@@ -1,7 +1,12 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
+  namespace: {{ .Values.namespace | quote }}
   name: alluxio-worker
+  labels:
+    app: {{ template "datalake.alluxio.name" . }}
+    chart: {{ template "datalake.subchart" . }}
+    release: {{ .Release.Name }}
 spec:
   selector:
     matchLabels:
@@ -34,7 +39,7 @@ spec:
                 fieldPath: status.hostIP
           envFrom:
           - configMapRef:
-              name: alluxio-config
+              name: {{ template "datalake.alluxio.fullname" . }}
           ports:
           - containerPort: 29998
             name: rpc
@@ -59,9 +64,9 @@ spec:
             sizeLimit: "1G"
         - name: alluxio-domain
           hostPath:
-            path: /tmp/domain
+            path: {{ .Values.hostShortCircuit | quote }}
             type: Directory
         - name: alluxio-gluster
           hostPath:
-            path: /mnt
+            path: {{ .Values.hostUnderfs | quote }}
             type: Directory
