@@ -2,7 +2,7 @@ jenkins:
   replicaCount: 1
   image:
     repository: art-hq.intranet.qualys.com:5001/datalake/jenkins
-    tag: 0.1.0
+    tag: 0.1.1
     pullPolicy: IfNotPresent
   ingress:
     enabled: true

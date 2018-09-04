@@ -1,10 +1,9 @@
-all: spark
-spark: build push clean
+all: build push clean
 .PHONY: build push clean
 
 BASE_IMAGE = jenkins/jenkins:latest
 
-IMAGE_TAG = 0.1.0
+IMAGE_TAG = 0.1.1
 IMAGE_NAME = jenkins
 REGISTRY = art-hq.intranet.qualys.com:5001
 REPO = datalake
