@@ -11,7 +11,6 @@ data:
     spark.master spark://spark-master:7077
     spark.app.id QualysSpark
     spark.hadoop.datanucleus.autoCreateSchema false
-    spark.executor.memory 8g
     spark.executor.memoryOverhead   384m
     spark.driver.memory 4g
     spark.driver.memoryOverhead  384m
@@ -82,5 +81,13 @@ data:
       <property>
         <name>spark.sql.orc.impl</name>
         <value>native</value>
+      </property>
+      <property>
+        <name>spark.executor.memory</name>
+        <value>3g</value>
+      </property>
+      <property>
+        <name>spark.cores.max</name>
+        <value>3</value>
       </property>
     </configuration>
