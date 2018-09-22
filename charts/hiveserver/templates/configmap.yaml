@@ -63,7 +63,7 @@ data:
       </property>
       <property>
         <name>spark.executor.memory</name>
-        <value>7g</value>
+        <value>3g</value>
       </property>
       <property>
         <name>spark.driver.memory</name>
@@ -92,5 +92,9 @@ data:
       <property>
         <name>hive.metastore.uris</name>
         <value>thrift://hiveservice:9083</value>
+      </property>
+      <property>
+        <name>spark.cores.max</name>
+        <value>3</value>
       </property>
     </configuration>

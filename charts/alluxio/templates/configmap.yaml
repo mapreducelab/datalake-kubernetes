@@ -14,3 +14,4 @@ data:
     alluxio.master.hostname=alluxio-master
     alluxio.underfs.address=/gluster
     alluxio.worker.memory.size=2GB
+    alluxio.user.file.delete.unchecked=true
