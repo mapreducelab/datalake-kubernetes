@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   namespace: {{ .Values.namespace | quote }}
-  name: alluxio-worker
+  name: {{ template "datalake.alluxio.fullname" . }}
   labels:
     app: {{ template "datalake.alluxio.name" . }}
     chart: {{ template "datalake.subchart" . }}
@@ -10,17 +10,17 @@ metadata:
 spec:
   selector:
     matchLabels:
-      name: alluxio-worker
+      name: {{ template "datalake.alluxio.alluxio-worker" . }}
   template:
     metadata:
       labels:
-        name: alluxio-worker
+        name: {{ template "datalake.alluxio.alluxio-worker" . }}
     spec:
       hostNetwork: true
       hostPID: true
       dnsPolicy: ClusterFirstWithHostNet
       containers:
-        - name: alluxio-worker
+        - name: {{ template "datalake.alluxio.alluxio-worker" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           pullPolicy: {{ .Values.image.pullPolicy | quote }}
           resources:
@@ -33,6 +33,16 @@ spec:
           command: ["/entrypoint.sh"]
           args: ["worker"]
           env:
+          - name: AWS_ACCESS_KEY_ID
+            valueFrom:
+              configMapKeyRef:
+                name: {{ template "datalake.alluxio.fullname" . }}
+                key: AWS_ACCESS_KEY_ID
+          - name: AWS_SECRET_ACCESS_KEY
+            valueFrom:
+              configMapKeyRef:
+                name: {{ template "datalake.alluxio.fullname" . }}
+                key: AWS_SECRET_ACCESS_KEY
           - name: ALLUXIO_WORKER_HOSTNAME
             valueFrom:
               fieldRef:

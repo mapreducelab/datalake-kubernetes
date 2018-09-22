@@ -8,10 +8,14 @@ metadata:
     chart: {{ template "datalake.subchart" . }}
     release: {{ .Release.Name }}
 data:
+  AWS_ACCESS_KEY_ID: AKIAIO...
+  AWS_SECRET_ACCESS_KEY: wJalr...
   ALLUXIO_CONFIG: |-
     alluxio.security.authentication.type=SIMPLE
     alluxio.security.login.username=root
     alluxio.master.hostname=alluxio-master
-    alluxio.underfs.address=/gluster
-    alluxio.worker.memory.size=2GB
-    alluxio.user.file.delete.unchecked=true
+    alluxio.worker.memory.size=8GB
+    alluxio.underfs.address=s3a://datalake/qlake
+    alluxio.underfs.s3.endpoint=http://minio.p02.eng.sjc01.qualys.com/
+    alluxio.underfs.s3.disable.dns.buckets=true
+    alluxio.underfs.s3a.inherit_acl=false

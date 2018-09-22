@@ -12,3 +12,9 @@ install: build
 
 upgrade: build
 	helm upgrade $(HELM_NAME) charts/datalake --set tags.base=$(ALL_CHARTS)
+
+delete: build
+	helm delete --purge $(HELM_NAME)
+
+install-alluxio: build
+	helm install -n $(HELM_NAME) charts/datalake --set tags.base=false --set tags.alluxio=true

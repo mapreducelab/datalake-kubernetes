@@ -178,6 +178,12 @@ spark-hadoop-master
 {{- define "datalake.alluxio.name" -}}
 {{- template "datalake.name" . -}}-alluxio
 {{- end -}}
+{{- define "datalake.alluxio.alluxio-master" -}}
+{{- template "datalake.name" . -}}-alluxio-master
+{{- end -}}
+{{- define "datalake.alluxio.alluxio-worker" -}}
+{{- template "datalake.name" . -}}-alluxio-worker
+{{- end -}}
 
 {{- define "datalake.alluxio.fullname" -}}
 {{- $fullname := include "datalake.fullname" . -}}
