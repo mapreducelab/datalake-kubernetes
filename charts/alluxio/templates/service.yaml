@@ -15,4 +15,4 @@ spec:
     name: web
   clusterIP: None
   selector:
-    app: alluxio-master
+    app: {{ template "datalake.alluxio.alluxio-master" . }}

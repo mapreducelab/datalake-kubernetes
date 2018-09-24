@@ -19,7 +19,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   namespace: {{ .Values.namespace | quote }}
-  name: alluxio-master
+  name: "{{ .Release.Name }}-{{ template "datalake.alluxio.alluxio-master" . }}"
   labels:
     app: {{ template "datalake.alluxio.name" . }}
     chart: {{ template "datalake.subchart" . }}
@@ -27,19 +27,19 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: alluxio-master
+      app: {{ template "datalake.alluxio.alluxio-master" . }}
   serviceName: "alluxio-master"
   replicas: 1
   template:
     metadata:
       labels:
-        app: alluxio-master
+        app: {{ template "datalake.alluxio.alluxio-master" . }}
     spec:
       hostNetwork: true
       hostPID: true
       dnsPolicy: ClusterFirstWithHostNet
       containers:
-        - name: alluxio-master
+        - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           pullPolicy: {{ .Values.image.pullPolicy | quote }}
           resources:
@@ -51,6 +51,17 @@ spec:
               memory: "1024M"
           command: ["/entrypoint.sh"]
           args: ["master"]
+          env:
+          - name: AWS_ACCESS_KEY_ID
+            valueFrom:
+              configMapKeyRef:
+                name: {{ template "datalake.alluxio.fullname" . }}
+                key: AWS_ACCESS_KEY_ID
+          - name: AWS_SECRET_ACCESS_KEY
+            valueFrom:
+              configMapKeyRef:
+                name: {{ template "datalake.alluxio.fullname" . }}
+                key: AWS_SECRET_ACCESS_KEY
           envFrom:
           - configMapRef:
               name: {{ template "datalake.alluxio.fullname" . }}
