@@ -40,7 +40,6 @@ dependencies:
     repository: "file://../alluxio"
     condition: condition.subchart.alluxio
     tags:
-      - base
       - alluxio
 
   - name: zeppelin

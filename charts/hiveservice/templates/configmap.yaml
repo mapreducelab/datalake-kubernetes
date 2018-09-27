@@ -26,26 +26,6 @@ data:
         <value>hive</value>
       </property>
       <property>
-        <name>fs.alluxio.impl</name>
-        <value>alluxio.hadoop.FileSystem</value>
-      </property>
-      <property>
-        <name>fs.AbstractFileSystem.alluxio.impl</name>
-        <value>alluxio.hadoop.AlluxioFileSystem</value>
-      </property>
-      <property>
-        <name>fs.defaultFS</name>
-        <value>alluxio://alluxio-master:19998</value>
-      </property>
-      <property>
-        <name>spark.eventLog.dir</name>
-        <value>alluxio://alluxio-master:19998/sparkeventLog</value>
-      </property>
-      <property>
-        <name>alluxio.user.file.readtype.default</name>
-        <value>NO_CACHE</value>
-      </property>
-      <property>
         <name>hive.metastore.schema.verification</name>
         <value>true</value>
       </property>
@@ -56,5 +36,41 @@ data:
       <property>
         <name>datanucleus.autoCreateSchema</name>
         <value>false</value>
+      </property>
+      <property>
+        <name>fs.defaultFS</name>
+        <value>s3a://qlake</value>
+      </property>
+      <property>
+        <name>fs.s3a.impl</name>
+        <value>org.apache.hadoop.fs.s3a.S3AFileSystem</value>
+      </property>
+      <property>
+        <name>fs.AbstractFileSystem.s3a.impl</name>
+        <value>org.apache.hadoop.fs.s3a.S3A</value>
+      </property>
+      <property>
+        <name>fs.s3a.path.style.access</name>
+        <value>true</value>
+      </property>
+      <property>
+        <name>fs.s3a.connection.ssl.enabled</name>
+        <value>false</value>
+      </property>
+      <property>
+        <name>fs.s3a.endpoint</name>
+        <value>http://minio.p02.eng.sjc01.qualys.com</value>
+      </property>
+      <property>
+        <name>sPath</name>
+        <value>/qlake</value>
+      </property>
+      <property>
+        <name>fs.s3a.access.key</name>
+        <value>AKIAIOSFODNN7EXAMPLE</value>
+      </property>
+      <property>
+        <name>fs.s3a.secret.key</name>
+        <value>wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY</value>
       </property>
     </configuration>

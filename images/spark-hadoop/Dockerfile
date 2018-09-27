@@ -7,25 +7,21 @@ WORKDIR /opt
 
 ARG SPARK_VER
 ARG HADOOP_VER
-ARG ALLUXIO_VER
 ARG SCALA_VER
 
 ARG REPOSITORY="https://art-hq.intranet.qualys.com/artifactory/dev-common/datalake"
 ARG SPARK="${REPOSITORY}/spark-${SPARK_VER}-bin-hadoop2.7.tar"
-ARG HADOOP="${REPOSITORY}/hadoop-${HADOOP_VER}.tar.gz"
-ARG ALLUXIO="${REPOSITORY}/alluxio-${ALLUXIO_VER}-hadoop-2.9-bin.tar.gz"
+ARG HADOOP="http://apache.claz.org/hadoop/common/hadoop-${HADOOP_VER}/hadoop-${HADOOP_VER}.tar.gz"
 ARG CASSANDRA_JAR="${REPOSITORY}/spark-cassandra-connector_${SCALA_VER}-${SPARK_VER}.jar"
 ARG OJDBS="${REPOSITORY}/ojdbc8-full.tar"
 
-ADD ${SPARK} ${HADOOP} ${ALLUXIO} ${CASSANDRA_JAR} ${OJDBS} ./
+ADD ${SPARK} ${HADOOP} ${CASSANDRA_JAR} ${OJDBS} ./
 
 RUN mkdir -p /opt/build && \
     tar -xf spark-${SPARK_VER}-bin-hadoop2.7.tar && \ 
     mv spark-${SPARK_VER}-bin-hadoop2.7 /opt/build/ && \
     tar -zxf hadoop-${HADOOP_VER}.tar.gz && \
     mv hadoop-${HADOOP_VER} /opt/build/ && \
-    tar -zxf alluxio-${ALLUXIO_VER}-hadoop-2.9-bin.tar.gz && \
-    cp alluxio-${ALLUXIO_VER}-hadoop-2.9/client/alluxio-${ALLUXIO_VER}-client.jar /opt/build/spark-${SPARK_VER}-bin-hadoop2.7/jars/ && \
     cp spark-cassandra-connector_2.11-2.3.1.jar /opt/build/spark-${SPARK_VER}-bin-hadoop2.7/jars/ && \
     tar -xf ojdbc8-full.tar && cp OJDBC8-Full/ojdbc8.jar /opt/build/spark-${SPARK_VER}-bin-hadoop2.7/jars/
 
@@ -36,7 +32,6 @@ ENV https_proxy=https://10.113.197.252:80
 
 ARG SPARK_VER
 ARG HADOOP_VER
-ARG ALLUXIO_VER
 ARG SCALA_VER_VER
 
 ENV JAVA_HOME=/usr/lib/jvm/jre-1.8.0-openjdk \
@@ -56,6 +51,11 @@ COPY start-worker start-master /
 COPY entrypoint.sh /opt/
 ADD https://art-hq.intranet.qualys.com/artifactory/third-party/datalake/tini.dms /tini
 RUN chmod +x /tini
+
+ADD https://art-hq.intranet.qualys.com/artifactory/third-party/datalake/hadoop-aws-2.8.5.jar /opt/hadoop/share/hadoop/common/lib/
+ADD https://art-hq.intranet.qualys.com/artifactory/third-party/datalake/aws-java-sdk-core-1.11.414.jar /opt/hadoop/share/hadoop/common/lib/
+ADD https://art-hq.intranet.qualys.com/artifactory/third-party/datalake/aws-java-sdk-kms-1.11.414.jar /opt/hadoop/share/hadoop/common/lib/
+ADD https://art-hq.intranet.qualys.com/artifactory/third-party/datalake/aws-java-sdk-s3-1.11.414.jar /opt/hadoop/share/hadoop/common/lib/
 
 WORKDIR /opt/spark/work-dir
 

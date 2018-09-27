@@ -27,8 +27,8 @@ zeppelin:
   namespace: default
   replicaCount: 1
   image:
-    repository: art-hq.intranet.qualys.com:5001/k8s.gcr.io/zeppelin
-    tag: 0.1.26
+    repository: art-hq.intranet.qualys.com:5001/datalake/zeppelin
+    tag: 0.2.9
     pullPolicy: IfNotPresent
   service:
     type: NodePort
@@ -78,7 +78,7 @@ hiveservice:
   replicaCount: 1
   image:
     repository: art-hq.intranet.qualys.com:5001/datalake/hiveservice
-    tag: 0.1.12
+    tag: 0.3.3
     pullPolicy: IfNotPresent
   ingress:
     enabled: false
@@ -100,7 +100,7 @@ spark:
   image:
     spark:
       repository: art-hq.intranet.qualys.com:5001/datalake/spark
-      tag: 0.2.13
+      tag: 0.3.1
       pullPolicy: IfNotPresent
     proxy:
       repository: art-hq.intranet.qualys.com:5001/datalake/spark-ui-proxy
@@ -132,7 +132,7 @@ spark-hadoop:
   image:
     spark:
       repository: art-hq.intranet.qualys.com:5001/datalake/spark-hadoop
-      tag: 0.2.0
+      tag: 0.3.1
       pullPolicy: IfNotPresent
     proxy:
       repository: art-hq.intranet.qualys.com:5001/datalake/spark-ui-proxy
@@ -160,7 +160,7 @@ hiveserver:
   replicaCount: 1
   image:
     repository: art-hq.intranet.qualys.com:5001/datalake/hiveserver
-    tag: 0.2.3
+    tag: 0.3.0
     pullPolicy: IfNotPresent
   service:
     type: None
