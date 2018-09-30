@@ -29,7 +29,7 @@ accessKey: "AKIAIOSFODNN7EXAMPLE"
 secretKey: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
 configPath: "/root/.minio/"
 mountPath: "/minio-"
-replicas: 7
+replicas: 10
 
 ## Enable persistence using Persistent Volume Claims
 ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/

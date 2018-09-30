@@ -30,3 +30,9 @@ delete-monitoring:
 	helm delete --purge monitoring-prometheus-node-exporter 
 	helm delete --purge monitoring-prometheus
 	helm delete --purge monitoring-prometheus-operator 
+
+install-minio:
+	helm install -n minio charts/minio --debug
+
+delete-minio:
+	helm delete --purge minio

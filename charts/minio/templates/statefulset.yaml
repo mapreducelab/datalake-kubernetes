@@ -33,16 +33,12 @@ spec:
           "-ce", 
           "cp /tmp/config.json {{ .Values.configPath }} &&
           /usr/bin/docker-entrypoint.sh minio -C {{ .Values.configPath }} server
-          http://{{ template `minio.fullname` $ }}-{0...6}.{{ template `minio.fullname` $ }}.{{ $.Release.Namespace }}.svc.cluster.local/minio-sd{0...3}" ]
+          http://{{ template `minio.fullname` $ }}-{0...9}.{{ template `minio.fullname` $ }}.{{ $.Release.Namespace }}.svc.cluster.local/minio-sd{0...1}" ]
           volumeMounts:
             - name: minio-0
               mountPath: "/minio-0"
             - name: minio-1
               mountPath: "/minio-1"
-            - name: minio-2
-              mountPath: "/minio-2"
-            - name: minio-3
-              mountPath: "/minio-3"
             - name: minio-server-config
               mountPath: "/tmp/config.json"
               subPath: config.json
@@ -93,14 +89,6 @@ spec:
         - name: minio-1
           hostPath:
             path: "/minio-1"
-            type: Directory
-        - name: minio-2
-          hostPath:
-            path: "/minio-2"
-            type: Directory
-        - name: minio-3
-          hostPath:
-            path: "/minio-3"
             type: Directory
         - name: minio-user
           secret:
