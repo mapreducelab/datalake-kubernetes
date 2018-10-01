@@ -8,7 +8,7 @@ metadata:
     release: {{ .Release.Name }}
 data:
   spark-defaults.conf: |
-    spark.master spark://spark--hadoop-master:7077
+    spark.master spark://spark-hadoop-master:7077
     spark.app.id QualysSpark
     spark.hadoop.datanucleus.autoCreateSchema false
     spark.executor.memory 8g
@@ -22,12 +22,8 @@ data:
   hive-site.xml: |
     <configuration>
       <property>
-        <name>javax.jdo.option.ConnectionURL</name>
-        <value>jdbc:postgresql://postgresql:5432/metastore</value>
-      </property>
-      <property>
-        <name>javax.jdo.option.ConnectionDriverName</name>
-        <value>org.postgresql.Driver</value>
+        <name>hive.metastore.uris</name>
+        <value>thrift://hiveservice:9083</value>
       </property>
       <property>
         <name>javax.jdo.option.ConnectionUserName</name>
@@ -40,28 +36,6 @@ data:
       <property>
         <name>hive.execution.engine</name>
         <value>spark</value>
-      </property>
-      <property>
-        <name>fs.alluxio.impl</name>
-        <value>alluxio.hadoop.FileSystem</value>
-        <description>The Alluxio FileSystem (Hadoop 1.x and 2.x)</description>
-      </property>
-      <property>
-        <name>fs.AbstractFileSystem.alluxio.impl</name>
-        <value>alluxio.hadoop.AlluxioFileSystem</value>
-        <description>The Alluxio AbstractFileSystem (Hadoop 2.x)</description>
-      </property>
-      <property>
-        <name>fs.defaultFS</name>
-        <value>alluxio://alluxio-master:19998</value>
-      </property>
-      <property>
-        <name>spark.master</name>
-        <value>spark://spark-hadoop-master:6066</value>
-      </property>
-      <property>
-        <name>spark.eventLog.dir</name>
-        <value>alluxio://alluxio-master:19998/sparkeventLog</value>
       </property>
       <property>
         <name>spark.home</name>
@@ -84,6 +58,10 @@ data:
         <value>true</value>
       </property>
       <property>
+      <property>
+        <name>spark.master</name>
+        <value>spark://spark-hadoop-master:6066</value>
+      </property>
         <name>spark.executor.memory</name>
         <value>7g</value>
       </property>
@@ -102,5 +80,42 @@ data:
       <property>
         <name>spark.scheduler.minRegisteredResourcesRatio</name>
         <value>0.8</value>
+      </property>
+
+      <property>
+        <name>fs.defaultFS</name>
+        <value>s3a://qlake</value>
+      </property>
+      <property>
+        <name>fs.s3a.impl</name>
+        <value>org.apache.hadoop.fs.s3a.S3AFileSystem</value>
+      </property>
+      <property>
+        <name>fs.AbstractFileSystem.s3a.impl</name>
+        <value>org.apache.hadoop.fs.s3a.S3A</value>
+      </property>
+      <property>
+        <name>fs.s3a.path.style.access</name>
+        <value>true</value>
+      </property>
+      <property>
+        <name>fs.s3a.connection.ssl.enabled</name>
+        <value>false</value>
+      </property>
+      <property>
+        <name>fs.s3a.endpoint</name>
+        <value>http://minio.p02.eng.sjc01.qualys.com</value>
+      </property>
+      <property>
+        <name>sPath</name>
+        <value>/qlake</value>
+      </property>
+      <property>
+        <name>fs.s3a.access.key</name>
+        <value>AKIAIOSFODNN7EXAMPLE</value>
+      </property>
+      <property>
+        <name>fs.s3a.secret.key</name>
+        <value>wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY</value>
       </property>
     </configuration>

@@ -2,7 +2,7 @@ FROM centos:centos7.5.1804 as builder
 
 LABEL maintainer="aputra@qualys.com"
 
-ENV HADOOP_VER 2.9.1
+ENV HADOOP_VER 2.8.5
 ENV HIVE_VER 3.1.0
 ENV ALLUXIO_VER 1.8.0
 
@@ -27,6 +27,10 @@ ENV HADOOP_HOME /opt/hadoop
 COPY --from=builder ${HIVE_HOME} ${HIVE_HOME}/
 COPY --from=builder ${HADOOP_HOME} ${HADOOP_HOME}/
 COPY --from=builder /opt/alluxio_client.jar ${HIVE_HOME}/lib/
+ADD https://art-hq.intranet.qualys.com/artifactory/third-party/datalake/hadoop-aws-2.8.5.jar /opt/hive/lib/
+ADD https://art-hq.intranet.qualys.com/artifactory/third-party/datalake/aws-java-sdk-core-1.11.414.jar /opt/hive/lib/
+ADD https://art-hq.intranet.qualys.com/artifactory/third-party/datalake/aws-java-sdk-kms-1.11.414.jar /opt/hive/lib/
+ADD https://art-hq.intranet.qualys.com/artifactory/third-party/datalake/aws-java-sdk-s3-1.11.414.jar /opt/hive/lib/
 
 ENTRYPOINT [ "/opt/hive/bin/hive" ]
 CMD [ "--service", "metastore" ]

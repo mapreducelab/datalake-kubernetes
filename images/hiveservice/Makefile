@@ -2,7 +2,7 @@ all: hiveservice
 hiveservice: build push clean
 .PHONY: build push clean
 
-HIVE_TAG = 0.1.12
+HIVE_TAG = 0.3.3
 IMAGE_NAME = hiveservice
 REGISTRY = art-hq.intranet.qualys.com:5001
 REPO = datalake

@@ -7,7 +7,7 @@ datalake
 {{- end -}}
 
 {{- define "datalake.domain" -}}
-p02.eng.sjc01.qualys.com
+eng.sjc01.qualys.com
 {{- end -}}
 
 

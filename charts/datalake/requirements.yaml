@@ -1,59 +1,64 @@
 dependencies:
-  - name: hiveservice
-    version: "0.1.0"
-    repository: "file://../hiveservice"
-    condition: condition.subchart.hiveservice
-    tags:
-      - base
 
-  - name: hiveserver
-    version: "0.1.0"
-    repository: "file://../hiveserver"
-    condition: condition.subchart.hiveserver
-    tags:
-      - base
+- name: prometheus-operator
+  version: "0.1.0"
+  repository: "file://../prometheus-operator"
+  condition: condition.subchart.prometheus-operator
+  tags:
+    - monitoring
 
-  - name: spark
-    version: "0.1.0"
-    repository: "file://../spark"
-    condition: condition.subchart.spark
-    tags:
-      - spark
-      - base
+- name: hiveservice
+  version: "0.1.0"
+  repository: "file://../hiveservice"
+  condition: condition.subchart.hiveservice
+  tags:
+    - base
 
-  - name: spark-hadoop
-    version: "0.1.0"
-    repository: "file://../spark-hadoop"
-    condition: condition.subchart.spark-hadoop
-    tags:
-      - base
+- name: hiveserver
+  version: "0.1.0"
+  repository: "file://../hiveserver"
+  condition: condition.subchart.hiveserver
+  tags:
+    - base
 
-  - name: postgresql
-    version: "0.1.0"
-    repository: "file://../postgresql"
-    condition: condition.subchart.postgresql
-    tags:
-      - base
+- name: spark
+  version: "0.1.0"
+  repository: "file://../spark"
+  condition: condition.subchart.spark
+  tags:
+    - base
 
-  - name: alluxio
-    version: "0.1.0"
-    repository: "file://../alluxio"
-    condition: condition.subchart.alluxio
-    tags:
-      - base
-      - alluxio
+- name: spark-hadoop
+  version: "0.1.0"
+  repository: "file://../spark-hadoop"
+  condition: condition.subchart.spark-hadoop
+  tags:
+    - base
 
-  - name: zeppelin
-    version: "0.1.0"
-    repository: "file://../zeppelin"
-    condition: condition.subchart.zeppelin
-    tags:
-      - base
-      
-  - name: jenkins
-    version: "0.1.0"
-    repository: "file://../jenkins"
-    condition: condition.subchart.jenkins
-    tags:
-      - base
-      - jenkins
+- name: postgresql
+  version: "0.1.0"
+  repository: "file://../postgresql"
+  condition: condition.subchart.postgresql
+  tags:
+    - base
+
+- name: alluxio
+  version: "0.1.0"
+  repository: "file://../alluxio"
+  condition: condition.subchart.alluxio
+  tags:
+    - alluxio
+
+- name: zeppelin
+  version: "0.1.0"
+  repository: "file://../zeppelin"
+  condition: condition.subchart.zeppelin
+  tags:
+    - base
+    
+- name: jenkins
+  version: "0.1.0"
+  repository: "file://../jenkins"
+  condition: condition.subchart.jenkins
+  tags:
+    - base
