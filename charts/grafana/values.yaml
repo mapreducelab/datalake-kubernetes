@@ -120,15 +120,7 @@ resources: {}
   #   cpu: 100m
 
 ingress:
-  ## If true, Grafana Ingress will be created
-  ##
   enabled: false
-
-  ## Annotations for Alertmanager Ingress
-  ##
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
 
   ## Labels to be added to the Ingress
   ##

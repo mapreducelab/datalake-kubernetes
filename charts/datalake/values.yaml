@@ -12,7 +12,7 @@ jenkins:
       kubernetes.io/app-root: /jenkins
     path: /
     hosts:
-      - jenkinsd
+      - jenkins-qflow
   service:
     type: ClusterIP
     ui: 8080
@@ -100,7 +100,7 @@ spark:
   image:
     spark:
       repository: art-hq.intranet.qualys.com:5001/datalake/spark
-      tag: 0.3.1
+      tag: 0.3.2
       pullPolicy: IfNotPresent
     proxy:
       repository: art-hq.intranet.qualys.com:5001/datalake/spark-ui-proxy

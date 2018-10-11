@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: druid-overlord-deployment
+  labels:
+    app: druid-overlord
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: druid-overlord
+  template:
+    metadata:
+      labels:
+        app: druid-overlord
+    spec:
+      hostname: druid-overlord
+      containers:
+      - name: druid-overlord
+        command: ["/opt/druid-0.12.3/bin/overlord.sh", "start"]
+        image: art-hq.intranet.qualys.com:5001/datalake/druid-base:0.2.0
+        ports:
+        - containerPort: 8090
