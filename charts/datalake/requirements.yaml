@@ -1,11 +1,11 @@
 dependencies:
-
-- name: prometheus-operator
-  version: "0.1.0"
-  repository: "file://../prometheus-operator"
-  condition: condition.subchart.prometheus-operator
-  tags:
-    - monitoring
+# TODO: currently standalone, integrate with datalake.
+# - name: prometheus-operator
+#   version: "0.1.0"
+#   repository: "file://../prometheus-operator"
+#   condition: condition.subchart.prometheus-operator
+#   tags:
+#     - monitoring
 
 - name: hiveservice
   version: "0.1.0"

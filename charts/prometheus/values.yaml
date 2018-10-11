@@ -50,15 +50,7 @@ image:
 labels: {}
 
 ingress:
-  ## If true, Prometheus Ingress will be created
-  ##
   enabled: false
-
-  ## Annotations for Prometheus Ingress
-  ##
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
 
   ## Labels to be added to the Ingress
   ##

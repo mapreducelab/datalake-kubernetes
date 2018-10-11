@@ -22,5 +22,11 @@ helm dependency build charts/datalake && helm install -n mylake charts/datalake 
 
 ### Create tmp folder for PostgreSQL
 ```
-export ANSIBLE_HOST_KEY_CHECKING=false; ansible -i inventory.ini kube-node --become --ask-pass -m file -a "path=/var/postgres-data state=directory"
+export ANSIBLE_HOST_KEY_CHECKING=false; ansible -i inventory/qualys/qflow.ini kube-node --become --ask-pass -m file -a "path=/var/postgres-data state=directory"
+```
+
+### Spark
+```
+kubectl create serviceaccount spark
+kubectl create clusterrolebinding spark-role --clusterrole=edit --serviceaccount=default:spark --namespace=default
 ```

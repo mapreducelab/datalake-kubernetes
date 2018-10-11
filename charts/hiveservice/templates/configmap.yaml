@@ -59,7 +59,7 @@ data:
       </property>
       <property>
         <name>fs.s3a.endpoint</name>
-        <value>http://minio.p02.eng.sjc01.qualys.com</value>
+        <value>http://minio.eng.sjc01.qualys.com</value>
       </property>
       <property>
         <name>sPath</name>
