@@ -58,7 +58,6 @@ data:
         <value>true</value>
       </property>
       <property>
-      <property>
         <name>spark.master</name>
         <value>spark://spark-hadoop-master:6066</value>
       </property>

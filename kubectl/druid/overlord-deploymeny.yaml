@@ -18,6 +18,6 @@ spec:
       containers:
       - name: druid-overlord
         command: ["/opt/druid-0.12.3/bin/overlord.sh", "start"]
-        image: art-hq.intranet.qualys.com:5001/datalake/druid-base:0.2.0
+        image: art-hq.intranet.qualys.com:5001/datalake/druid-base:0.2.8
         ports:
         - containerPort: 8090

@@ -9,4 +9,4 @@ if ! getent hosts spark-master; then
 fi
 
 # Run spark-class directly so that when it exits (or crashes), the pod restarts.
-/opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077 --webui-port 8081 --cores 5 --memory 8G
+/opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077 --webui-port 8081 --cores 6 --memory 8G

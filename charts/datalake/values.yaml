@@ -19,7 +19,8 @@ jenkins:
   resources:
     requests:
       cpu: 100m
-  nodeSelector: {}
+  nodeSelector:
+    role: compute
   tolerations: []
   affinity: {}
 
@@ -45,7 +46,8 @@ zeppelin:
   resources:
     requests:
       cpu: 100m
-  nodeSelector: {}
+  nodeSelector:
+    role: compute
   tolerations: []
   affinity: {}
 
@@ -68,7 +70,8 @@ alluxio:
     hosts:
       - alluxio
   resources: {}
-  nodeSelector: {}
+  nodeSelector:
+    role: compute
   tolerations: []
   affinity: {}
   hostUnderfs: /mnt
@@ -88,7 +91,8 @@ hiveservice:
   resources:
     requests:
       cpu: 100m
-  nodeSelector: {}
+  nodeSelector:
+    role: compute
   tolerations: []
   affinity: {}
 
@@ -96,7 +100,7 @@ spark:
   spark_master:
     replicaCount: 1
   spark_worker:
-    replicaCount: 1
+    replicaCount: 3
   image:
     spark:
       repository: art-hq.intranet.qualys.com:5001/datalake/spark
@@ -120,7 +124,8 @@ spark:
   resources:
     requests:
       cpu: 100m
-  nodeSelector: {}
+  nodeSelector:
+    role: compute
   tolerations: []
   affinity: {}
 
@@ -152,7 +157,8 @@ spark-hadoop:
   resources:
     requests:
       cpu: 100m
-  nodeSelector: {}
+  nodeSelector:
+    role: compute
   tolerations: []
   affinity: {}
 
@@ -173,7 +179,8 @@ hiveserver:
   resources:
     requests:
       cpu: 100m
-  nodeSelector: {}
+  nodeSelector:
+    role: compute
   tolerations: []
   affinity: {}
 
@@ -242,7 +249,8 @@ postgresql:
   ## Node labels and tolerations for pod assignment
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
-  nodeSelector: {}
+  nodeSelector:
+    role: compute
   tolerations: []
   affinity: {}
 

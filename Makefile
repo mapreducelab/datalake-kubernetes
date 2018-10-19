@@ -8,10 +8,7 @@ build:
 	helm dependency build charts/datalake
 
 install: build
-	helm install -n $(HELM_NAME) charts/datalake --set tags.base=$(ALL_CHARTS) --set tags.alluxio=false
-
-upgrade: build
-	helm upgrade $(HELM_NAME) charts/datalake --set tags.base=$(ALL_CHARTS) --set tags.alluxio=false
+	helm upgrade $(HELM_NAME) --install charts/datalake --set tags.base=$(ALL_CHARTS) --set tags.alluxio=false
 
 delete: build
 	helm delete --purge $(HELM_NAME)

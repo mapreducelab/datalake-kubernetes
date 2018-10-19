@@ -1,7 +1,7 @@
 all: build push clean
 .PHONY: build push clean
 
-TAG = 0.2.0
+TAG = 0.2.9
 IMAGE_NAME = druid-base
 REGISTRY = art-hq.intranet.qualys.com:5001
 REPO = datalake

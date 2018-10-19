@@ -8,5 +8,6 @@ spec:
   type: NodePort
   ports:
   - port: 8090
+    nodePort: 30761
   selector:
     app: druid-overlord
